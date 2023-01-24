@@ -5,6 +5,6 @@ The purpose of this code is to analize wetland ecosystems across Europe and rela
 
 DATA
 
-The data used in this analysis came from ????? satellite. 
+The data used in this analysis came from Sentinel-2 satellite. 
 
-To study birds populations changes I downloaded the data from GBIF databases.
+To study birds populations changes I downloaded the data from European Environmental Agency databases.
