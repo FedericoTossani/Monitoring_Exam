@@ -65,10 +65,10 @@ list.of.packages <- c("tidyverse", "raster", "RStoolbox", "rasterdiv", "rasterVi
 # ori02_stack <- stack(ori02_all)
 # writeRaster(ori02_stack, filename="ori_p193r32_20020430.grd", format="raster")
 
-list_ori_84 <- list.files(pattern = "1984")
-ori84_all <- lapply(list_ori_84, raster)
-ori84_stack <- stack(ori84_all)
-writeRaster(ori84_stack, filename="ori_p193r32_19840420.grd", format="raster")
+list_ori_87 <- list.files(pattern = "1987")
+ori87_all <- lapply(list_ori_87, raster)
+ori87_stack <- stack(ori87_all)
+writeRaster(ori87_stack, filename="ori_p193r32_19870429.grd", format="raster")
 
 ## Import the multiband images with brick and crop it to the intrested area
 ## From now on I will use this images for the anlysis
@@ -77,7 +77,7 @@ ori22t <- brick("ori_p193r32_20220429.grd")
 
 ori02t <- brick("ori_p193r32_20020430.grd")
 
-ori84t <- brick("ori_p193r32_19840420.grd")
+ori87t <- brick("ori_p193r32_19870429.grd")
 
 p_o22 <- plotRGB(ori22t, 4, 3, 2, stretch="lin")
 # drawExtent(show=TRUE, col="red")
@@ -102,7 +102,7 @@ p22 <- plotRGB(ori22, 4, 3, 2, stretch = "lin")
 p02 <- plotRGB(ori02, 3, 2, 1, stretch = "lin")
 p84 <- plotRGB(ori84, 3, 2, 1, stretch = "lin")
 
-grid.arrange(p84, p02, p22, ncol = 1)
+grid.arrange(p84, p02, p22, nrow = 2)
 
 # ============================ #
     ## False colors ##
@@ -110,9 +110,27 @@ grid.arrange(p84, p02, p22, ncol = 1)
 
 # Vegetarion Analysis
 
+# ???
+pfvs22 <- plotRGB(ori22, 6, 5, 4, stretch = "lin")
+pfvs02 <- plotRGB(ori02, 5, 4, 3, stretch = "lin")
+pfvs84 <- plotRGB(ori84, 5, 4, 3, stretch = "lin")
+
+grid.arrange(pfvs22, pfvs02, pfvs84, nrow = 2)
+# ???
+pfvn22 <- plotRGB(ori22, 5, 4, 3, stretch = "lin")
+pfvn02 <- plotRGB(ori02, 4, 3, 2, stretch = "lin")
+pfvn84 <- plotRGB(ori84, 4, 3, 2, stretch = "lin")
+
+grid.arrange(pfn22, pfn02, pfn84, nrow = 2)
 
 # Urban area detection
 
+# ???
+pfu22 <- plotRGB(ori22, 7, 6, 4, stretch = "lin")
+pfu02 <- plotRGB(ori02, 7, 5, 3, stretch = "lin")
+pfu84 <- plotRGB(ori84, 7, 5, 3, stretch = "lin")
+
+grid.arrange(pfu22, pfu02, pfu84, nrow = 2)
 
 # Shortwave Infrared
 
@@ -124,23 +142,30 @@ grid.arrange(p84, p02, p22, ncol = 1)
 # NDVI
 # NDVI is obtained by divideing the difference between NIR and red bands by their sum
 
-NDVI_ori22 <- (ori22[[5]]-ori22[[4]])/(ori22[[5]]+ori22[[4]])
-NDVI_ori02 <- (ori02[[5]]-ori02[[4]])/(ori02[[5]]+ori02[[4]])
-NDVI_ori83 <- (ori83[[4]]-ori83[[3]])/(ori83[[4]]+ori83[[3]])
+ndvi22 <- (ori22[[5]] - ori22[[4]]) / (ori22[[5]] + ori22[[4]])
+ndvi02 <- (ori02[[5]] - ori02[[4]]) / (ori02[[5]] + ori02[[4]])
+ndvi84 <- (ori84[[5]] - ori84[[4]]) / (ori84[[5]] + ori84[[4]])
 
-p_NDVI_22 <- ggplot()+
-geom_raster(NDVI_ori22, mapping=aes(x = x, y = y, fill = layer))+
+ndvi_diff <- ndvi22 - ndvi 84
+
+pn22 <- ggplot()+
+geom_raster(ndvi22, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()
 
-p_NDVI_02 <- ggplot()+
-geom_raster(NDVI_ori02, mapping=aes(x = x, y = y, fill = layer))+
+pn02 <- ggplot()+
+geom_raster(ndvi02, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()
 
-p_NDVI_83 <- ggplot()+
-geom_raster(NDVI_ori83, mapping=aes(x = x, y = y, fill = layer))+
+pn84 <- ggplot()+
+geom_raster(ndvi84, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()
 
-grid.arrange(p_NDVI_22, p_NDVI_02, p_NDVI_83, ncol = 1)
+pnd <- ggplot()+
+geom_raster(ndvi_diff, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()
+
+grid.arrange(pn22, pn02, pn84,  nrow = 2)
+
 # EVI
 
 #
