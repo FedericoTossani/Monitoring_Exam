@@ -19,11 +19,12 @@
 
 # 1. SetWD and packages
 # 2. Data import
-# 3. Vegetation indices
-# 4. Water indices
-# 5. Land use and Land Cover Classification
-# 6. Change detection
-# 7. Birds populations trend
+# 3. False color
+# 4. Vegetation indices
+# 5. Water indices
+# 6. Land use and Land Cover Classification
+# 7. Change detection
+# 8. Birds populations trend
 
 # ==================================================================================================== #
 # ==================================================================================================== #
@@ -31,7 +32,7 @@
 ## SetWD and packages
 
 # Prima di tutto imposto la working directory
-setwd("C:/lab/exam/images/")
+setwd("C:/lab/exam/")
 
 # Creo una lista che contiene tutti i pacchetti che mi interesanno per le successiva analisi
 
@@ -48,10 +49,9 @@ list.of.packages <- c("tidyverse", "raster", "RStoolbox", "rasterdiv", "rasterVi
   lapply(list.of.packages, require, character.only = TRUE)
 }
 
-# ==================================================================================================== #
-# ==================================================================================================== #
-
-## Data import ##
+# =========================== #
+       ## Data import ##
+# =========================== #
 
 ## I used this piece of code to create stack of bands I need for the further analysis
 
@@ -65,40 +65,61 @@ list.of.packages <- c("tidyverse", "raster", "RStoolbox", "rasterdiv", "rasterVi
 # ori02_stack <- stack(ori02_all)
 # writeRaster(ori02_stack, filename="ori_p193r32_20020430.grd", format="raster")
 
-# list_ori_83 <- list.files(pattern = "1983")
-# ori83_all <- lapply(list_ori_83, raster)
-# ori83_stack <- stack(ori83_all)
-# writeRaster(ori83_stack, filename="ori_p193r32_19830410.grd", format="raster")
+list_ori_84 <- list.files(pattern = "1984")
+ori84_all <- lapply(list_ori_84, raster)
+ori84_stack <- stack(ori84_all)
+writeRaster(ori84_stack, filename="ori_p193r32_19840420.grd", format="raster")
 
 ## Import the multiband images with brick and crop it to the intrested area
+## From now on I will use this images for the anlysis
 
 ori22t <- brick("ori_p193r32_20220429.grd")
 
 ori02t <- brick("ori_p193r32_20020430.grd")
 
-ori83t <- brick("ori_p193r32_19830410.grd")
+ori84t <- brick("ori_p193r32_19840420.grd")
 
 p_o22 <- plotRGB(ori22t, 4, 3, 2, stretch="lin")
 # drawExtent(show=TRUE, col="red")
 
-# class      : Extent 
-# xmin       : 445706.3 
-# xmax       : 471400.7 
-# ymin       : 4405203 
-# ymax       : 4431219 
 
-extnew <- extent(445706.3, 471400.7, 4405203, 4431219)
+# xmin       : 447440 
+# xmax       : 463826.3 
+# ymin       : 4411123 
+# ymax       : 4428401 
+
+extnew <- extent(447440, 463826.3, 4411123, 4428401)
 
 # Let's crop the images by the extent I need
 
 ori22 <- crop(ori22t, extnew)
 ori02 <- crop(ori02t, extnew)
-ori83 <- crop(ori83t, extnew)
+ori84 <- crop(ori84t, extnew)
 
-# ==================================================================================================== #
-# ==================================================================================================== #
+# Let's plot the images in natural colors
 
-## Vegetation indices
+p22 <- plotRGB(ori22, 4, 3, 2, stretch = "lin")
+p02 <- plotRGB(ori02, 3, 2, 1, stretch = "lin")
+p84 <- plotRGB(ori84, 3, 2, 1, stretch = "lin")
+
+grid.arrange(p84, p02, p22, ncol = 1)
+
+# ============================ #
+    ## False colors ##
+# ============================ #
+
+# Vegetarion Analysis
+
+
+# Urban area detection
+
+
+# Shortwave Infrared
+
+
+# ============================ #
+    ## Vegetation indices ##
+# ============================ #
 
 # NDVI
 # NDVI is obtained by divideing the difference between NIR and red bands by their sum
@@ -111,6 +132,15 @@ p_NDVI_22 <- ggplot()+
 geom_raster(NDVI_ori22, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()
 
+p_NDVI_02 <- ggplot()+
+geom_raster(NDVI_ori02, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()
+
+p_NDVI_83 <- ggplot()+
+geom_raster(NDVI_ori83, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()
+
+grid.arrange(p_NDVI_22, p_NDVI_02, p_NDVI_83, ncol = 1)
 # EVI
 
 #
