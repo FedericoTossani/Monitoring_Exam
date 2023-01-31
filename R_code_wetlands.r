@@ -5,17 +5,14 @@
 
  
 # Prof. Duccio Rocchini
- 
-# Univesiyà: Alma Mater Studiorum Università di Bologna.
-
-# Anno: 2022/2023
+# Univesity: Alma Mater Studiorum University of Bologna.
+# Academic year: 2022/2023
  
 # Datasets: Landsat images and EEA data
 
 # =========================== #
+         ## SUMMARY ##
 # =========================== #
-
-## SUMMARY ##
 
 # 1. SetWD and packages
 # 2. Data import
@@ -26,10 +23,9 @@
 # 7. Change detection
 # 8. Birds populations trend
 
-# =========================== #
-# =========================== #
-
-## SetWD and packages ##
+# ============================ #
+    ## SetWD and packages ##
+# ============================ #
 
 # Prima di tutto imposto la working directory
 setwd("C:/lab/exam/")
@@ -55,59 +51,73 @@ list.of.packages <- c("tidyverse", "raster", "RStoolbox", "rasterdiv", "rasterVi
 
 ## I used this piece of code to create stack of bands I need for the further analysis
 
-# list_ori_22 <- list.files(pattern = "2022")
-# ori22_all <- lapply(list_ori_22, raster)
-# ori22_stack <- stack(ori22_all)
-# writeRaster(ori22_stack, filename="ori_p193r32_20220429.grd", format="raster")
-
-# list_ori_02 <- list.files(pattern = "2002")
-# ori02_all <- lapply(list_ori_02, raster)
-# ori02_stack <- stack(ori02_all)
-# writeRaster(ori02_stack, filename="ori_p193r32_20020430.grd", format="raster")
-
-list_po_87 <- list.files(pattern = "192029_1987")
-po87_all <- lapply(list_po_87, raster)
-po87_stack <- stack(po87_all)
-writeRaster(po87_stack, filename="po_p192r29_19870508.grd", format="raster")
+list_img <- list.files(pattern = "191029_19930517")
+img_allbands <- lapply(list_img, raster)
+img_stack <- stack(img_allbands)
+writeRaster(img_stack, filename="delta_p192r29_19930517.grd", format="raster")
 
 ## Import the multiband images with brick and crop it to the intrested area
 ## From now on I will use this images for the anlysis
 
 # Images of Sardinia
-ori22t <- brick("ori_p193r32_20220429.grd")
-ori02t <- brick("ori_p193r32_20020430.grd")
-ori87t <- brick("ori_p193r32_19870429.grd")
+
+   ## Oristano
+
+oristano22_f <- brick("ori_p193r32_20220429.grd")
+oristano02_f <- brick("ori_p193r32_20020430.grd")
+oristano87_f <- brick("ori_p193r32_19870429.grd")
 
 extnew <- extent(447440, 463826.3, 4411123, 4428401)
 
-# Let's crop the images by the extent I need
+ori22 <- crop(oristano22_f, extnew)
+ori02 <- crop(oristano02_f, extnew)
+ori87 <- crop(oristano87_f, extnew)
 
-ori22 <- crop(ori22t, extnew)
-ori02 <- crop(ori02t, extnew)
-ori87 <- crop(ori87t, extnew)
+    ## Cagliari
 
-# Images of Po delta
-po22t <- brick("po_p192r29_20220516.grd")
-po87t <- brick("po_p192r29_19870508.grd")
+cagliari84_f <- brick("cagliari_p193r33_19840506.grd")
+cagliari93_f <- brick("cagliari_p192r33_19930508.grd")
+cagliari02_f <- brick("cagliari_p192r33_20020517.grd")
+cagliari11_f <- brick("cagliari_p193r33_20110517.grd")
+cagliari21_f <- brick("cagliari_p193r33_20210512.grd")
 
-# Po extent
-class      : Extent 
-xmin       : 719134.3 
-xmax       : 790415.6 
-ymin       : 4902762 
-ymax       : 5022008 
-
-ext_po <- extent(719134.3, 790415.6, 4902762, 5022008)
-
-# Let's crop the images by the extent I need
-
-po22 <- crop(po22t, ext_po)
-po87 <- crop(po87t, ext_po)
-
-p_p22 <- plotRGB(po22t, 4, 3, 2, stretch="lin")
+cagliari_crop_plot <- plotRGB(cagliari84_f, 4, 3, 2, stretch="lin")
 drawExtent(show=TRUE, col="red")
 
+ext_cagliari <- extent(485040.5, 530489.6, 4330778, 4351353)
 
+# Let's crop the images by the extent I need
+
+cagliari84_c <- crop(cagliari84_f, ext_cagliari)
+cagliari93_c <- crop(cagliari93_f, ext_cagliari)
+cagliari02_c <- crop(cagliari02_f, ext_cagliari)
+cagliari11_c <- crop(cagliari11_f, ext_cagliari)
+cagliari21_c <- crop(cagliari21_f, ext_cagliari)
+
+plotRGB(cagliari84_c, 4, 3, 2, stretch="lin")
+
+    ## Po delta
+
+delta85_f <- brick("delta_p191r29_19850511.grd")
+delta93_f <- brick("delta_p191r29_19930517.grd")
+delta02_f <- brick("delta_p192r29_20020517.grd")
+delta11_f <- brick("delta_p191r29_20110519.grd")
+delta20_f <- brick("delta_p191r29_20200527.grd")
+
+delta_crop_plot <- plotRGB(delta85_f, 4, 3, 2, stretch="lin")
+drawExtent(show=TRUE, col="red")
+
+ext_cagliari <- extent(???, ???, ???, ???)
+
+# Let's crop the images by the extent I need
+
+cagliari84_c <- crop(cagliari84_f, ext_cagliari)
+cagliari93_c <- crop(cagliari93_f, ext_cagliari)
+cagliari02_c <- crop(cagliari02_f, ext_cagliari)
+cagliari11_c <- crop(cagliari11_f, ext_cagliari)
+cagliari21_c <- crop(cagliari21_f, ext_cagliari)
+
+plotRGB(cagliari84_c, 4, 3, 2, stretch="lin")
 # Let's plot the images in natural colors
 
 p22 <- plotRGB(ori22, 4, 3, 2, stretch = "lin")
