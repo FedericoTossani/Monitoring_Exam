@@ -14,7 +14,7 @@ To study birds populations changes I downloaded the data from European Environme
 
 For this project I will use images of italian wetlands located in Northwestern Adriatic Coast.
 
-## The process
+## Methods
 
 1. Download the images from Earth Explorer
 
