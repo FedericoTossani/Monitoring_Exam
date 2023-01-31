@@ -33,7 +33,7 @@ setwd("C:/lab/exam/")
 # Creo una lista che contiene tutti i pacchetti che mi interesanno per le successiva analisi
 
 list.of.packages <- c("tidyverse", "raster", "RStoolbox", "rasterdiv", "rasterVis",
-                      "ggplot2", "viridis", "gridExtra")
+                      "ggplot2", "viridis", "gridExtra", "sf")
 
 # il seguente comando verifica che i pacchetti siano installati (se necessario li installa) poi li carica
 
@@ -63,15 +63,20 @@ writeRaster(img_stack, filename="delta_p192r29_19930517.grd", format="raster")
 
    ## Oristano
 
-oristano22_f <- brick("ori_p193r32_20220429.grd")
-oristano02_f <- brick("ori_p193r32_20020430.grd")
 oristano87_f <- brick("ori_p193r32_19870429.grd")
+oristano02_f <- brick("ori_p193r32_20020430.grd")
+oristano22_f <- brick("ori_p193r32_20220429.grd") # Landsat 8
 
-extnew <- extent(447440, 463826.3, 4411123, 4428401)
+oristano_crop_plot <- plotRGB(oristano87_f, 4, 3, 2, stretch="lin")
+drawExtent(show=TRUE, col="red")
 
-ori22 <- crop(oristano22_f, extnew)
-ori02 <- crop(oristano02_f, extnew)
-ori87 <- crop(oristano87_f, extnew)
+ext_oristano <- extent(447440, 463826.3, 4411123, 4428401)
+
+oristano87_c <- crop(oristano87_f, ext_oristano)
+oristano02_c <- crop(oristano02_f, ext_oristano)
+oristano22_c <- crop(oristano22_f, ext_oristano) # Landsat 8
+
+plotRGB(oristano87_c, 4, 3, 2, stretch="lin")
 
     ## Cagliari
 
@@ -79,7 +84,7 @@ cagliari84_f <- brick("cagliari_p193r33_19840506.grd")
 cagliari93_f <- brick("cagliari_p192r33_19930508.grd")
 cagliari02_f <- brick("cagliari_p192r33_20020517.grd")
 cagliari11_f <- brick("cagliari_p193r33_20110517.grd")
-cagliari21_f <- brick("cagliari_p193r33_20210512.grd")
+cagliari21_f <- brick("cagliari_p193r33_20210512.grd") # Landsat 8
 
 cagliari_crop_plot <- plotRGB(cagliari84_f, 4, 3, 2, stretch="lin")
 drawExtent(show=TRUE, col="red")
@@ -92,7 +97,7 @@ cagliari84_c <- crop(cagliari84_f, ext_cagliari)
 cagliari93_c <- crop(cagliari93_f, ext_cagliari)
 cagliari02_c <- crop(cagliari02_f, ext_cagliari)
 cagliari11_c <- crop(cagliari11_f, ext_cagliari)
-cagliari21_c <- crop(cagliari21_f, ext_cagliari)
+cagliari21_c <- crop(cagliari21_f, ext_cagliari) # Landsat 8
 
 plotRGB(cagliari84_c, 4, 3, 2, stretch="lin")
 
@@ -102,22 +107,35 @@ delta85_f <- brick("delta_p191r29_19850511.grd")
 delta93_f <- brick("delta_p191r29_19930517.grd")
 delta02_f <- brick("delta_p192r29_20020517.grd")
 delta11_f <- brick("delta_p191r29_20110519.grd")
-delta20_f <- brick("delta_p191r29_20200527.grd")
+delta20_f <- brick("delta_p191r29_20200527.grd") # Landsat 8
 
 delta_crop_plot <- plotRGB(delta85_f, 4, 3, 2, stretch="lin")
 drawExtent(show=TRUE, col="red")
 
-ext_cagliari <- extent(???, ???, ???, ???)
+ext_delta <- extent(266228.3, 304561.4, 4916977, 4979504)
 
 # Let's crop the images by the extent I need
 
-cagliari84_c <- crop(cagliari84_f, ext_cagliari)
-cagliari93_c <- crop(cagliari93_f, ext_cagliari)
-cagliari02_c <- crop(cagliari02_f, ext_cagliari)
-cagliari11_c <- crop(cagliari11_f, ext_cagliari)
-cagliari21_c <- crop(cagliari21_f, ext_cagliari)
+delta85_c <- crop(delta85_f, ext_delta)
+delta93_c <- crop(delta93_f, ext_delta)
+delta02_c <- crop(delta02_f, ext_delta)
+delta11_c <- crop(delta11_f, ext_delta)
+delta20_c <- crop(delta20_f, ext_delta) # Landsat 8
 
-plotRGB(cagliari84_c, 4, 3, 2, stretch="lin")
+plotRGB(delta85_c, 4, 3, 2, stretch="lin")
+
+# remove sea pixel
+
+# Read in the shapefile of the area of interest
+aoi <- read_sf("C:/lab/exam/ramsar_delta.shp")
+
+# Crop the image to the area of interest
+delta85_test <- mask(delta85_f, aoi)
+
+
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+
+
 # Let's plot the images in natural colors
 
 p22 <- plotRGB(ori22, 4, 3, 2, stretch = "lin")
