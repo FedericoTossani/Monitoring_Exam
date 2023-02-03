@@ -121,6 +121,30 @@ ndvi87w <- (ori87w[[5]] - ori87w[[4]]) / (ori87w[[5]] + ori87w[[4]])
     ## False colors ##
 # ============================ #
 
+# for loop to create RGB plot
+
+oristano_nrg_list <- list()
+
+for (oristano_img in oristano_cropped) {
+ 
+  # Select the i-th image
+ image <- raster(oristano_img)
+  
+  # Create the RGB plot
+
+  
+  # Add the plot to the list
+  oristano_nrg_list[[oristano_img]] <- rgb_plot
+
+}
+
+par(mfrow = c(3, 2))
+# Display the plots
+for (rgb_plot in oristano_nrg_list) {
+  print(rgb_plot)
+}
+
+
 # Vegetarion Analysis
 
 # ???
