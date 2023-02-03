@@ -156,6 +156,59 @@ remove_index <- c(TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALS
 delta_cropped <- delta_cropped[!remove_index]
 
 
+# =========================== #
+       ## False color ##
+# =========================== #
+
+
+    # Oristano
+
+oristano_cropped
+
+# R = nir, G = red, B = green
+
+par(mfrow = C(3, 2))
+
+oristano_nrg_list <- list()
+
+
+for (oristano_img in oristano_cropped) {
+ 
+  # Select the i-th image
+ image <- raster(oristano_img)
+  
+  # Create the RGB plot
+  rgb_plot <-  plotRGB(image, 4, 3, 2, stretch = "lin")
+  
+  # Add the plot to the list
+  oristano_nrg_list[[oristano_img]] <- rgb_plot
+
+}
+
+par(mfrow = c(3, 2))
+# Display the plots
+for (rgb_plot in oristano_nrg_list) {
+  print(rgb_plot)
+}
+
+# R = swir, G = swir, B = red
+
+# R = swir1, G = nir, B = red
+
+# R = swir2, G = nir, B = red
+
+
+    # Cagliari
+
+cagliari_cropped
+
+
+    # Po delta
+
+delta_cropped
+
+
+
 # =============================== #
        ## Spectral indices ##
 # =============================== #
