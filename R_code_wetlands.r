@@ -682,7 +682,62 @@ oristano88_indices <- RStoolbox::spectralIndices(oristano_cropped[[1]], blue = 1
 oristano95_indices <- RStoolbox::spectralIndices(oristano_cropped[[2]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
 oristano02_indices <- RStoolbox::spectralIndices(oristano_cropped[[3]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
 oristano10_indices <- RStoolbox::spectralIndices(oristano_cropped[[4]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
-oristano20_indices <- RStoolbox::spectralIndices(oristano_cropped[[5]], blue = 2, green = 3, red = 4, nir = 5, swir2 = 6, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
+oristano20_indices <- RStoolbox::spectralIndices(oristano_cropped[[5]], blue = 3, green = 4, red = 5, nir = 6, swir2 = 7, swir3= 8, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
+
+oristano_ndvi_diff <- oristano20_indices$NDVI - oristano88_indices$NDVI
+
+oristano_ndvi_plot <-
+ ggplot()+
+  geom_raster(oristano_ndvi_diff, mapping = aes(x=x, y=y, fill = layer))+
+  scale_fill_viridis("viridis") + 
+  labs(title = "Oristano",
+       subtitle = "Difference in NDVI index between 1988 and 2020",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat 4 and 8 images")
+ggsave("oristano_ndvi_diff_plot.jpeg", plot = oristano_ndvi_plot)
+
+
+oristano_ndwi_diff <- oristano20_indices$NDWI - oristano88_indices$NDWI
+
+oristano_ndwi_plot <-
+ ggplot()+
+  geom_raster(oristano_ndwi_diff, mapping = aes(x=x, y=y, fill = layer))+
+  scale_fill_viridis("viridis") + 
+  labs(title = "Oristano",
+       subtitle = "Difference in NDWI index between 1988 and 2020",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat 4 and 8 images")
+ggsave("oristano_ndwi_diff_plot.jpeg", plot = oristano_ndwi_plot)
+
+
+oristano_ndwi2_diff <- oristano20_indices$NDWI2 - oristano88_indices$NDWI2
+
+oristano_ndwi2_plot <-
+ ggplot()+
+  geom_raster(oristano_ndwi2_diff, mapping = aes(x=x, y=y, fill = layer))+
+  scale_fill_viridis("viridis") + 
+  labs(title = "Oristano",
+       subtitle = "Difference in NDWI2 index between 1988 and 2020",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat 4 and 8 images")
+ggsave("oristano_ndwi2_diff_plot.jpeg", plot = oristano_ndwi2_plot)
+
+
+oristano_slavi_diff <- oristano20_indices$SLAVI - oristano88_indices$SLAVI
+
+oristano_slavi_plot <-
+ ggplot()+
+  geom_raster(oristano_slavi_diff, mapping = aes(x=x, y=y, fill = layer))+
+  scale_fill_viridis("viridis") + 
+  labs(title = "Oristano",
+       subtitle = "Difference in SLAVI index between 1988 and 2020",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat 4 and 8 images")
+ggsave("oristano_slavi_diff_plot.jpeg", plot = oristano_slavi_plot)
 
 
     ## Cagliari indeces
@@ -691,8 +746,62 @@ cagliari87_indices <- RStoolbox::spectralIndices(cagliari_cropped[[2]], blue = 1
 cagliari92_indices <- RStoolbox::spectralIndices(cagliari_cropped[[3]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
 cagliari05_indices <- RStoolbox::spectralIndices(cagliari_cropped[[4]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
 cagliari11_indices <- RStoolbox::spectralIndices(cagliari_cropped[[5]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
-cagliari22_indices <- RStoolbox::spectralIndices(cagliari_cropped[[1]], blue = 2, green = 3, red = 4, nir = 5, swir2 = 6, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
+cagliari22_indices <- RStoolbox::spectralIndices(cagliari_cropped[[1]], blue = 3, green = 4, red = 5, nir = 6, swir2 = 7, swir3= 8, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
 
+oristano_ndvi_diff <- oristano20_indices$NDVI - oristano88_indices$NDVI
+
+oristano_ndvi_plot <-
+ ggplot()+
+  geom_raster(oristano_ndvi_diff, mapping = aes(x=x, y=y, fill = layer))+
+  scale_fill_viridis("viridis") + 
+  labs(title = "Oristano",
+       subtitle = "Difference in NDVI index between 1988 and 2020",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat 4 and 8 images")
+ggsave("oristano_ndvi_diff_plot.jpeg", plot = oristano_ndvi_plot)
+
+
+oristano_ndwi_diff <- oristano20_indices$NDWI - oristano88_indices$NDWI
+
+oristano_ndwi_plot <-
+ ggplot()+
+  geom_raster(oristano_ndwi_diff, mapping = aes(x=x, y=y, fill = layer))+
+  scale_fill_viridis("viridis") + 
+  labs(title = "Oristano",
+       subtitle = "Difference in NDWI index between 1988 and 2020",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat 4 and 8 images")
+ggsave("oristano_ndwi_diff_plot.jpeg", plot = oristano_ndwi_plot)
+
+
+oristano_ndwi2_diff <- oristano20_indices$NDWI2 - oristano88_indices$NDWI2
+
+oristano_ndwi2_plot <-
+ ggplot()+
+  geom_raster(oristano_ndwi2_diff, mapping = aes(x=x, y=y, fill = layer))+
+  scale_fill_viridis("viridis") + 
+  labs(title = "Oristano",
+       subtitle = "Difference in NDWI2 index between 1988 and 2020",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat 4 and 8 images")
+ggsave("oristano_ndwi2_diff_plot.jpeg", plot = oristano_ndwi2_plot)
+
+
+oristano_slavi_diff <- oristano20_indices$SLAVI - oristano88_indices$SLAVI
+
+oristano_slavi_plot <-
+ ggplot()+
+  geom_raster(oristano_slavi_diff, mapping = aes(x=x, y=y, fill = layer))+
+  scale_fill_viridis("viridis") + 
+  labs(title = "Oristano",
+       subtitle = "Difference in SLAVI index between 1988 and 2020",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat 4 and 8 images")
+ggsave("oristano_slavi_diff_plot.jpeg", plot = oristano_slavi_plot)
 
     ## Po delta indeces
 
