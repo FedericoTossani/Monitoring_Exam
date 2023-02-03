@@ -163,50 +163,512 @@ delta_cropped <- delta_cropped[!remove_index]
 
     # Oristano
 
-oristano_cropped
-
 # R = nir, G = red, B = green
 
-par(mfrow = C(3, 2))
+ oristano_plot_nrg1 <- ggRGB(oristano_cropped[[1]], 4, 3, 2, stretch = "lin") +
+   labs(title = "Oristano 1988",
+       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
 
-oristano_nrg_list <- list()
+ oristano_plot_nrg2 <- ggRGB(oristano_cropped[[2]], 4, 3, 2, stretch = "lin") +
+   labs(title = "Oristano 1995",
+       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
 
+ oristano_plot_nrg3 <- ggRGB(oristano_cropped[[3]], 4, 3, 2, stretch = "lin") +
+   labs(title = "Oristano 2002",
+       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
 
-for (oristano_img in oristano_cropped) {
- 
-  # Select the i-th image
- image <- raster(oristano_img)
-  
-  # Create the RGB plot
-  rgb_plot <-  plotRGB(image, 4, 3, 2, stretch = "lin")
-  
-  # Add the plot to the list
-  oristano_nrg_list[[oristano_img]] <- rgb_plot
+ oristano_plot_nrg4 <- ggRGB(oristano_cropped[[4]], 4, 3, 2, stretch = "lin") +
+   labs(title = "Oristano 2010",
+       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
 
-}
+ oristano_plot_nrg5 <- ggRGB(oristano_cropped[[5]], 6, 5, 4, stretch = "lin") +
+   labs(title = "Oristano 2020",
+       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat8 OLI/TIRS")
 
-par(mfrow = c(3, 2))
-# Display the plots
-for (rgb_plot in oristano_nrg_list) {
-  print(rgb_plot)
-}
+# grid.arrange (oristano_plot_nrg1, oristano_plot_nrg2, oristano_plot_nrg3, oristano_plot_nrg4, oristano_plot_nrg5, nrow=2)
+
+grid.arrange (oristano_plot_nrg1, oristano_plot_nrg5, nrow=1)
+
 
 # R = swir, G = swir, B = red
 
+ oristano_plot_ssr1 <- ggRGB(oristano_cropped[[1]], 7, 5, 3, stretch = "lin") +
+   labs(title = "Oristano 1988",
+       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ oristano_plot_ssr2 <- ggRGB(oristano_cropped[[2]], 7, 5, 3, stretch = "lin") +
+   labs(title = "Oristano 1995",
+       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ oristano_plot_ssr3 <- ggRGB(oristano_cropped[[3]], 7, 5, 3, stretch = "lin") +
+   labs(title = "Oristano 2002",
+       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ oristano_plot_ssr4 <- ggRGB(oristano_cropped[[4]], 7, 5, 3, stretch = "lin") +
+   labs(title = "Oristano 2010",
+       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ oristano_plot_ssr5 <- ggRGB(oristano_cropped[[5]], 8, 7, 5, stretch = "lin") +
+   labs(title = "Oristano 2020",
+       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat8 OLI/TIRS")
+
+# grid.arrange (oristano_plot_ssr1, oristano_plot_ssr2, oristano_plot_ssr3, oristano_plot_ssr4,oristano_ plot_ssr5, nrow=2)
+
+grid.arrange (oristano_plot_ssr1, oristano_plot_ssr5, nrow=1)
+
+
 # R = swir1, G = nir, B = red
 
+oristano_plot_s1nr1 <- ggRGB(oristano_cropped[[1]], 5, 4, 3, stretch = "lin") +
+   labs(title = "Oristano 1988",
+       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+oristano_plot_s1nr2 <- ggRGB(oristano_cropped[[2]], 5, 4, 3, stretch = "lin") +
+   labs(title = "Oristano 1995",
+       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+oristano_plot_s1nr3 <- ggRGB(oristano_cropped[[3]], 5, 4, 3, stretch = "lin") +
+   labs(title = "Oristano 2002",
+       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+oristano_plot_s1nr4 <- ggRGB(oristano_cropped[[4]], 5, 4, 3, stretch = "lin") +
+   labs(title = "Oristano 2010",
+       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+oristano_plot_s1nr5 <- ggRGB(oristano_cropped[[5]], 7, 6, 5, stretch = "lin") +
+   labs(title = "Oristano 2020",
+       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat8 OLI/TIRS")
+
+# grid.arrange (oristano_plot_s1nr1, oristano_plot_s1nr2, oristano_plot_s1nr3, oristano_plot_s1nr4, oristano_plot_s1nr5, nrow=2)
+
+grid.arrange (oristano_plot_s1nr1, oristano_plot_s1nr5, nrow=1)
+
+
 # R = swir2, G = nir, B = red
+
+oristano_plot_s2nr1 <- ggRGB(oristano_cropped[[1]], 7, 4, 3, stretch = "lin") +
+   labs(title = "Oristano 1988",
+       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+oristano_plot_s2nr2 <- ggRGB(oristano_cropped[[2]], 7, 4, 3, stretch = "lin") +
+   labs(title = "Oristano 1995",
+       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+oristano_plot_s2nr3 <- ggRGB(oristano_cropped[[3]], 7, 4, 3, stretch = "lin") +
+   labs(title = "Oristano 2002",
+       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+oristano_plot_s2nr4 <- ggRGB(oristano_cropped[[4]], 7, 4, 3, stretch = "lin") +
+   labs(title = "Oristano 2010",
+       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+oristano_plot_s2nr5 <- ggRGB(oristano_cropped[[5]], 8, 6, 5, stretch = "lin") +
+   labs(title = "Oristano 2020",
+       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat8 OLI/TIRS")
+
+# grid.arrange (oristano_plot_s2nr1, oristano_plot_s2nr2, oristano_plot_s2nr3, oristano_plot_s2nr4, oristano_plot_s2nr5, nrow=2)
+
+grid.arrange (oristano_plot_s2nr1, oristano_plot_s2nr5, nrow=1)
 
 
     # Cagliari
 
-cagliari_cropped
+# R = nir, G = red, B = green
+
+ cagliari_plot_nrg1 <- ggRGB(cagliari_cropped[[1]], 4, 3, 2, stretch = "lin") +
+   labs(title = "Cagliari 1987",
+       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ cagliari_plot_nrg2 <- ggRGB(cagliari_cropped[[2]], 4, 3, 2, stretch = "lin") +
+   labs(title = "Cagliari 1992",
+       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ cagliari_plot_nrg3 <- ggRGB(cagliari_cropped[[3]], 4, 3, 2, stretch = "lin") +
+   labs(title = "Cagliari 2005",
+       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ cagliari_plot_nrg4 <- ggRGB(cagliari_cropped[[4]], 4, 3, 2, stretch = "lin") +
+   labs(title = "Cagliari 2011",
+       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ cagliari_plot_nrg5 <- ggRGB(cagliari_cropped[[5]], 6, 5, 4, stretch = "lin") +
+   labs(title = "Cagliari 2022",
+       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat8 OLI/TIRS")
+
+# grid.arrange (cagliari_plot_nrg1, cagliari_plot_nrg2, cagliari_plot_nrg3, cagliari_plot_nrg4, cagliari_plot_nrg5, nrow=2)
+
+grid.arrange (cagliari_plot_nrg1, cagliari_plot_nrg5, nrow=1)
+
+
+# R = swir, G = swir, B = red
+
+ cagliari_plot_ssr1 <- ggRGB(cagliari_cropped[[1]], 7, 5, 3, stretch = "lin") +
+   labs(title = "Cagliari 1987",
+       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ cagliari_plot_ssr2 <- ggRGB(cagliari_cropped[[2]], 7, 5, 3, stretch = "lin") +
+   labs(title = "Cagliari 1992",
+       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ cagliari_plot_ssr3 <- ggRGB(cagliari_cropped[[3]], 7, 5, 3, stretch = "lin") +
+   labs(title = "Cagliari 2005",
+       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ cagliari_plot_ssr4 <- ggRGB(cagliari_cropped[[4]], 7, 5, 3, stretch = "lin") +
+   labs(title = "Cagliari 2011",
+       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ cagliari_plot_ssr5 <- ggRGB(cagliari_cropped[[5]], 8, 7, 5, stretch = "lin") +
+   labs(title = "Cagliari 2022",
+       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat8 OLI/TIRS")
+
+# grid.arrange (cagliari_plot_ssr1, cagliari_plot_ssr2, cagliari_plot_ssr3, cagliari_plot_ssr4, cagliari_plot_ssr5, nrow=2)
+
+grid.arrange (cagliari_plot_ssr1, cagliari_plot_ssr5, nrow=1)
+
+
+# R = swir1, G = nir, B = red
+
+cagliari_plot_s1nr1 <- ggRGB(cagliari_cropped[[1]], 5, 4, 3, stretch = "lin") +
+   labs(title = "Cagliari 1987",
+       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+cagliari_plot_s1nr2 <- ggRGB(cagliari_cropped[[2]], 5, 4, 3, stretch = "lin") +
+   labs(title = "Cagliari 1992",
+       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+cagliari_plot_s1nr3 <- ggRGB(cagliari_cropped[[3]], 5, 4, 3, stretch = "lin") +
+   labs(title = "Cagliari 2005",
+       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+cagliari_plot_s1nr4 <- ggRGB(cagliari_cropped[[4]], 5, 4, 3, stretch = "lin") +
+   labs(title = "Cagliari 2011",
+       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+cagliari_plot_s1nr5 <- ggRGB(cagliari_cropped[[5]], 7, 6, 5, stretch = "lin") +
+   labs(title = "Cagliari 2022",
+       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat8 OLI/TIRS")
+
+# grid.arrange (cagliari_plot_s1nr1, cagliari_plot_s1nr2, cagliari_plot_s1nr3, cagliari_plot_s1nr4, cagliari_plot_s1nr5, nrow=2)
+
+grid.arrange (cagliari_plot_s1nr1, cagliari_plot_s1nr5, nrow=1)
+
+
+# R = swir2, G = nir, B = red
+
+cagliari_plot_s2nr1 <- ggRGB(cagliari_cropped[[1]], 7, 4, 3, stretch = "lin") +
+   labs(title = "Cagliari 1987",
+       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+cagliari_plot_s2nr2 <- ggRGB(cagliari_cropped[[2]], 7, 4, 3, stretch = "lin") +
+   labs(title = "Cagliari 1992",
+       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+cagliari_plot_s2nr3 <- ggRGB(cagliari_cropped[[3]], 7, 4, 3, stretch = "lin") +
+   labs(title = "Cagliari 2005",
+       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+cagliari_plot_s2nr4 <- ggRGB(cagliari_cropped[[4]], 7, 4, 3, stretch = "lin") +
+   labs(title = "Cagliari 2011",
+       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+cagliari_plot_s2nr5 <- ggRGB(cagliari_cropped[[5]], 8, 6, 5, stretch = "lin") +
+   labs(title = "Cagliari 2022",
+       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat8 OLI/TIRS")
+
+# grid.arrange (cagliari_plot_s2nr1, cagliari_plot_s2nr2, cagliari_plot_s2nr3, cagliari_plot_s2nr4, cagliari_plot_s2nr5, nrow=2)
+
+grid.arrange (cagliari_plot_s2nr1, cagliari_plot_s2nr5, nrow=1)
 
 
     # Po delta
 
-delta_cropped
+# R = nir, G = red, B = green
 
+ delta_plot_nrg1 <- ggRGB(delta_cropped[[1]], 4, 3, 2, stretch = "lin") +
+   labs(title = "Po delta 1985",
+       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ delta_plot_nrg2 <- ggRGB(delta_cropped[[2]], 4, 3, 2, stretch = "lin") +
+   labs(title = "Po delta 1993",
+       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ delta_plot_nrg3 <- ggRGB(delta_cropped[[3]], 4, 3, 2, stretch = "lin") +
+   labs(title = "Po delta 2005",
+       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ delta_plot_nrg4 <- ggRGB(delta_cropped[[4]], 4, 3, 2, stretch = "lin") +
+   labs(title = "Po delta 2011",
+       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ delta_plot_nrg5 <- ggRGB(delta_cropped[[5]], 6, 5, 4, stretch = "lin") +
+   labs(title = "Po delta 2020",
+       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat8 OLI/TIRS")
+
+# grid.arrange (delta_plot_nrg1, delta_plot_nrg2, delta_plot_nrg3, delta_plot_nrg4, delta_plot_nrg5, nrow=2)
+
+grid.arrange (delta_plot_nrg1, delta_plot_nrg5, nrow=1)
+
+
+# R = swir, G = swir, B = red
+
+ delta_plot_ssr1 <- ggRGB(delta_cropped[[1]], 7, 5, 3, stretch = "lin") +
+   labs(title = "Po delta 1985",
+       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ delta_plot_ssr2 <- ggRGB(delta_cropped[[2]], 7, 5, 3, stretch = "lin") +
+m   labs(title = "Po delta 1993",
+       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ delta_plot_ssr3 <- ggRGB(delta_cropped[[3]], 7, 5, 3, stretch = "lin") +
+   labs(title = "Po delta 2005",
+       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ delta_plot_ssr4 <- ggRGB(delta_cropped[[4]], 7, 5, 3, stretch = "lin") +
+   labs(title = "Po delta 2011",
+       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+ delta_plot_ssr5 <- ggRGB(delta_cropped[[5]], 8, 7, 5, stretch = "lin") +
+   labs(title = "Po delta 2020",
+       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat8 OLI/TIRS")
+
+# grid.arrange (delta_plot_ssr1, delta_plot_ssr2, delta_plot_ssr3, delta_plot_ssr4, delta_plot_ssr5, nrow=2)
+
+grid.arrange (delta_plot_ssr1, delta_plot_ssr5, nrow=1)
+
+
+# R = swir1, G = nir, B = red
+
+delta_plot_s1nr1 <- ggRGB(delta_cropped[[1]], 5, 4, 3, stretch = "lin") +
+   labs(title = "Po delta 1985",
+       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+delta_plot_s1nr2 <- ggRGB(delta_cropped[[2]], 5, 4, 3, stretch = "lin") +
+   labs(title = "Po delta 1993",
+       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+delta_plot_s1nr3 <- ggRGB(delta_cropped[[3]], 5, 4, 3, stretch = "lin") +
+   labs(title = "Po delta 2005",
+       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+delta_plot_s1nr4 <- ggRGB(delta_cropped[[4]], 5, 4, 3, stretch = "lin") +
+   labs(title = "Po delta 2011",
+       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+delta_plot_s1nr5 <- ggRGB(delta_cropped[[5]], 7, 6, 5, stretch = "lin") +
+   labs(title = "Po delta 2020",
+       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat8 OLI/TIRS")
+
+# grid.arrange (delta_plot_s1nr1, delta_plot_s1nr2, delta_plot_s1nr3, delta_plot_s1nr4, delta_plot_s1nr5, nrow=2)
+
+grid.arrange (delta_plot_s1nr1, delta_plot_s1nr5, nrow=1)
+
+
+# R = swir2, G = nir, B = red
+
+delta_plot_s2nr1 <- ggRGB(delta_cropped[[1]], 7, 4, 3, stretch = "lin") +
+   labs(title = "Po delta 1985",
+       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+delta_plot_s2nr2 <- ggRGB(delta_cropped[[2]], 7, 4, 3, stretch = "lin") +
+   labs(title = "Po delta 1993",
+       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+delta_plot_s2nr3 <- ggRGB(delta_cropped[[3]], 7, 4, 3, stretch = "lin") +
+   labs(title = "Po delta 2005",
+       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+delta_plot_s2nr4 <- ggRGB(delta_cropped[[4]], 7, 4, 3, stretch = "lin") +
+   labs(title = "Po delta 2011",
+       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat4 TM")
+
+delta_plot_s2nr5 <- ggRGB(delta_cropped[[5]], 8, 6, 5, stretch = "lin") +
+   labs(title = "Po delta 2020",
+       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
+       x = "Longitude",
+       y = "Latitude",
+       caption = "Data source: Landsat8 OLI/TIRS")
+
+# grid.arrange (delta_plot_s2nr1, delta_plot_s2nr2, delta_plot_s2nr3, delta_plot_s2nr4, delta_plot_s2nr5, nrow=2)
+
+grid.arrange (delta_plot_s2nr1, delta_plot_s2nr5, nrow=1)
 
 
 # =============================== #
