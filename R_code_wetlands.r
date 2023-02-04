@@ -136,7 +136,7 @@ ext_delta <- extent(266228.3, 304561.4, 4916977, 4979504)
 
 crop_file <- function(delta_img) {
   
-  # Create the extent bject
+  # Create the extent object
   ext_delta <- extent(266228.3, 304561.4, 4916977, 4979504)
   
   # Crop the raster object with the extent
@@ -676,7 +676,7 @@ grid.arrange (delta_plot_s2nr1, delta_plot_s2nr5, nrow=1)
 # =============================== #
 
 
-    ## Oristano indeces
+    ## Oristano indices
 
 oristano88_indices <- RStoolbox::spectralIndices(oristano_cropped[[1]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
 oristano95_indices <- RStoolbox::spectralIndices(oristano_cropped[[2]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
@@ -740,7 +740,7 @@ oristano_slavi_plot <-
 ggsave("oristano_slavi_diff_plot.jpeg", plot = oristano_slavi_plot)
 
 
-    ## Cagliari indeces
+    ## Cagliari indices
 
 cagliari87_indices <- RStoolbox::spectralIndices(cagliari_cropped[[1]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
 cagliari92_indices <- RStoolbox::spectralIndices(cagliari_cropped[[2]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
@@ -803,7 +803,7 @@ cagliari_slavi_plot <-
        caption = "Data source: Landsat 4 and 8 images")
 ggsave("cagliari_slavi_diff_plot.jpeg", plot = cagliari_slavi_plot)
 
-    ## Po delta indeces
+    ## Po delta indices
 
 delta85_indices <- RStoolbox::spectralIndices(delta_cropped[[1]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
 delta93_indices <- RStoolbox::spectralIndices(delta_cropped[[2]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
@@ -873,13 +873,9 @@ ggsave("delta_slavi_diff_plot.jpeg", plot = delta_slavi_plot)
 
 set.seed(999)
 oristano88_lcc <- unsuperClass(oristano_cropped[[1]], nSamples = 1000, nClasses = 5)
-set.seed(999)
 oristano95_lcc <- unsuperClass(oristano_cropped[[2]], nSamples = 1000, nClasses = 5)
-set.seed(999)
 oristano02_lcc <- unsuperClass(oristano_cropped[[3]], nSamples = 1000, nClasses = 5)
-set.seed(999)
 oristano10_lcc <- unsuperClass(oristano_cropped[[4]], nSamples = 1000, nClasses = 5)
-set.seed(999)
 oristano20_lcc <- unsuperClass(oristano_cropped[[5]], nSamples = 1000, nClasses = 5)
 
 oristano_lcc <- list(oristano88_lcc, oristano95_lcc, oristano02_lcc, oristano10_lcc, oristano20_lcc)
@@ -894,37 +890,28 @@ plot(oristano_lcc[[5]]$map)
 
     ## Cagliari
 
-set.seed(999)
-cagliari93_lcc <- unsuperClass(cagliari_cropped[[1]], nSamples = 1000, nClasses = 5)
-set.seed(999)
-cagliari02_lcc <- unsuperClass(cagliari_cropped[[2]], nSamples = 1000, nClasses = 5)
-set.seed(999)
-cagliari84_lcc <- unsuperClass(cagliari_cropped[[3]], nSamples = 1000, nClasses = 5)
-set.seed(999)
+cagliari87_lcc <- unsuperClass(cagliari_cropped[[1]], nSamples = 1000, nClasses = 5)
+cagliari92_lcc <- unsuperClass(cagliari_cropped[[2]], nSamples = 1000, nClasses = 5)
+cagliari05_lcc <- unsuperClass(cagliari_cropped[[3]], nSamples = 1000, nClasses = 5)
 cagliari11_lcc <- unsuperClass(cagliari_cropped[[4]], nSamples = 1000, nClasses = 5)
-set.seed(999)
-cagliari21_lcc <- unsuperClass(cagliari_cropped[[5]], nSamples = 1000, nClasses = 5)
+cagliari22_lcc <- unsuperClass(cagliari_cropped[[5]], nSamples = 1000, nClasses = 5)
 
 cagliari_lcc <- list(cagliari84_lcc, cagliari93_lcc, cagliari02_lcc, cagliari11_lcc, cagliari21_lcc)
 
 par(mfrow = c(3, 2))
-levelplot(cagliari_lcc[[1]]$map)
-levelplot(cagliari_lcc[[2]]$map)
-levelplot(cagliari_lcc[[3]]$map)
-levelplot(cagliari_lcc[[4]]$map)
-levelplot(cagliari_lcc[[5]]$map)
+plot(cagliari_lcc[[1]]$map)
+plot(cagliari_lcc[[2]]$map)
+plot(cagliari_lcc[[3]]$map)
+plot(cagliari_lcc[[4]]$map)
+plot(cagliari_lcc[[5]]$map)
 
     ## Po delta
 
 set.seed(999)
 delta85_lcc <- unsuperClass(delta_cropped[[1]], nSamples = 1000, nClasses = 5)
-set.seed(999)
 delta93_lcc <- unsuperClass(delta_cropped[[2]], nSamples = 1000, nClasses = 5)
-set.seed(999)
 delta05_lcc <- unsuperClass(delta_cropped[[3]], nSamples = 1000, nClasses = 5)
-set.seed(999)
 delta11_lcc <- unsuperClass(delta_cropped[[4]], nSamples = 1000, nClasses = 5)
-set.seed(999)
 delta20_lcc <- unsuperClass(delta_cropped[[5]], nSamples = 1000, nClasses = 5)
 
 delta_lcc <- list(delta85_lcc, delta93_lcc, delta05_lcc, delta11_lcc, delta20_lcc)
