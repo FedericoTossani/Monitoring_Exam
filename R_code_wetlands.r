@@ -960,9 +960,26 @@ plot(delta_lcc[[5]]$map)
 #  print(p)
 #}
 
+# =================================== #
+      ## Bird population trend ##
+# =================================== #
 
 
+data_birds <- read.csv("data_birds.csv")
+data_taxbirds <- read.csv("bird_check_list.csv")
 
+source <- data_birds%>%
+  dplyr::select(matches("_source"))%>%
+  colnames()
+
+data_taxbirds <- data_taxbirds%>%
+  dplyr::select("speciescode", "speciesname","taxOrder", "taxFamily", "taxGroup_en", "taxFamily_en")%>%
+  distinct(.keep_all = TRUE)
+
+data_birds <- data_birds%>%
+  dplyr::select(-which(names(data_birds) %in% source))%>%  
+  filter(country.x == "IT")%>%
+  left_join(data_taxbirds, by = c("speciescode", "speciesname"), keep = F)
 
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
