@@ -31,8 +31,7 @@ setwd("C:/lab/exam/")
 
 # Creo una lista che contiene tutti i pacchetti che mi interesanno per le successiva analisi
 
-list.of.packages <- c("tidyverse", "raster", "RStoolbox", "rasterdiv", "rasterVis",
-                      "ggplot2", "viridis", "gridExtra", "maptools", "sf")
+list.of.packages <- c("tidyverse", "raster", "RStoolbox", "rasterdiv", "rasterVis", "viridis", "gridExtra", "maptools", "sf")
 
 # il seguente comando verifica che i pacchetti siano installati (se necessario li installa) poi li carica
 
@@ -167,38 +166,33 @@ delta_cropped <- delta_cropped[!remove_index]
 
  oristano_plot_nrg1 <- ggRGB(oristano_cropped[[1]], 4, 3, 2, stretch = "lin") +
    labs(title = "Oristano 1989",
-       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = NIR, G = Red and B = Green",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
  oristano_plot_nrg2 <- ggRGB(oristano_cropped[[2]], 4, 3, 2, stretch = "lin") +
    labs(title = "Oristano 1999",
-       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = NIR, G = Red and B = Green",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
  oristano_plot_nrg3 <- ggRGB(oristano_cropped[[3]], 4, 3, 2, stretch = "lin") +
    labs(title = "Oristano 2007",
-       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = NIR, G = Red and B = Green",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
  oristano_plot_nrg4 <- ggRGB(oristano_cropped[[4]], 6, 5, 4, stretch = "lin") +
    labs(title = "Oristano 2017",
-       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat8 OLI/TIRS")
+       subtitle = "R = NIR, G = Red and B = Green",
+       caption = "Data source: Landsat8 OLI/TIRS") +
+  theme_void()
 
  oristano_plot_nrg5 <- ggRGB(oristano_cropped[[5]], 6, 5, 4, stretch = "lin") +
    labs(title = "Oristano 2023",
-       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat9 OLI/TIRS")
+       subtitle = "R = NIR, G = Red and B = Green",
+       caption = "Data source: Landsat9 OLI/TIRS") +
+  theme_void()
 
 grid.arrange (oristano_plot_nrg1, oristano_plot_nrg2, oristano_plot_nrg3, oristano_plot_nrg4, oristano_plot_nrg5, nrow=2)
 
@@ -209,38 +203,33 @@ grid.arrange (oristano_plot_nrg3, oristano_plot_nrg5, nrow=1)
 
  oristano_plot_ssr1 <- ggRGB(oristano_cropped[[1]], 7, 5, 3, stretch = "lin") +
    labs(title = "Oristano 1989",
-       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
  oristano_plot_ssr2 <- ggRGB(oristano_cropped[[2]], 7, 5, 3, stretch = "lin") +
    labs(title = "Oristano 1999",
-       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
  oristano_plot_ssr3 <- ggRGB(oristano_cropped[[3]], 7, 5, 3, stretch = "lin") +
    labs(title = "Oristano 2007",
-       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
  oristano_plot_ssr4 <- ggRGB(oristano_cropped[[4]], 8, 7, 5, stretch = "lin") +
    labs(title = "Oristano 2017",
-       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat8 OLI/TIRS")
+       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
+       caption = "Data source: Landsat8 OLI/TIRS") +
+  theme_void()
 
  oristano_plot_ssr5 <- ggRGB(oristano_cropped[[5]], 8, 7, 5, stretch = "lin") +
    labs(title = "Oristano 2023",
-       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat9 OLI/TIRS")
+       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
+       caption = "Data source: Landsat9 OLI/TIRS") +
+  theme_void()
 
 # grid.arrange (oristano_plot_ssr1, oristano_plot_ssr2, oristano_plot_ssr3, oristano_plot_ssr4,oristano_ plot_ssr5, nrow=2)
 
@@ -251,38 +240,33 @@ grid.arrange (oristano_plot_ssr4, oristano_plot_ssr5, nrow=1)
 
 oristano_plot_s1nr1 <- ggRGB(oristano_cropped[[1]], 5, 4, 3, stretch = "lin") +
    labs(title = "Oristano 1989",
-       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR1, G = NIR and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
 oristano_plot_s1nr2 <- ggRGB(oristano_cropped[[2]], 5, 4, 3, stretch = "lin") +
    labs(title = "Oristano 1999",
-       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+        subtitle = "R = SWIR1, G = NIR and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
 oristano_plot_s1nr3 <- ggRGB(oristano_cropped[[3]], 5, 4, 3, stretch = "lin") +
    labs(title = "Oristano 2007",
-       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR1, G = NIR and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
 oristano_plot_s1nr4 <- ggRGB(oristano_cropped[[4]], 7, 6, 5, stretch = "lin") +
    labs(title = "Oristano 2017",
-       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat8 OLI/TIRS")
+       subtitle = "R = SWIR1, G = NIR and B = Red",
+       caption = "Data source: Landsat8 OLI/TIRS") +
+  theme_void()
 
 oristano_plot_s1nr5 <- ggRGB(oristano_cropped[[5]], 7, 6, 5, stretch = "lin") +
    labs(title = "Oristano 2023",
-       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat9 OLI/TIRS")
+       subtitle = "R = SWIR1, G = NIR and B = Red",
+       caption = "Data source: Landsat9 OLI/TIRS") +
+  theme_void()
 
 # grid.arrange (oristano_plot_s1nr1, oristano_plot_s1nr2, oristano_plot_s1nr3, oristano_plot_s1nr4, oristano_plot_s1nr5, nrow=2)
 
@@ -293,38 +277,33 @@ grid.arrange (oristano_plot_s1nr1, oristano_plot_s1nr5, nrow=1)
 
 oristano_plot_s2nr1 <- ggRGB(oristano_cropped[[1]], 7, 4, 3, stretch = "lin") +
    labs(title = "Oristano 1989",
-       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR2, G = NIR and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
 oristano_plot_s2nr2 <- ggRGB(oristano_cropped[[2]], 7, 4, 3, stretch = "lin") +
    labs(title = "Oristano 1999",
-       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR2, G = NIR and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
 oristano_plot_s2nr3 <- ggRGB(oristano_cropped[[3]], 7, 4, 3, stretch = "lin") +
    labs(title = "Oristano 2007",
-       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR2, G = NIR and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
 oristano_plot_s2nr4 <- ggRGB(oristano_cropped[[4]], 8, 6, 5, stretch = "lin") +
    labs(title = "Oristano 2017",
-       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat8 OLI/TIRS")
+       subtitle = "R = SWIR2, G = NIR and B = Red",
+       caption = "Data source: Landsat8 OLI/TIRS") +
+  theme_void()
 
 oristano_plot_s2nr5 <- ggRGB(oristano_cropped[[5]], 8, 6, 5, stretch = "lin") +
    labs(title = "Oristano 2023",
-       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat9 OLI/TIRS")
+       subtitle = "R = SWIR2, G = NIR and B = Red",
+       caption = "Data source: Landsat9 OLI/TIRS") +
+  theme_void()
 
 # grid.arrange (oristano_plot_s2nr1, oristano_plot_s2nr2, oristano_plot_s2nr3, oristano_plot_s2nr4, oristano_plot_s2nr5, nrow=2)
 
@@ -337,38 +316,33 @@ grid.arrange (oristano_plot_s2nr1, oristano_plot_s2nr5, nrow=1)
 
  cagliari_plot_nrg1 <- ggRGB(cagliari_cropped[[1]], 4, 3, 2, stretch = "lin") +
    labs(title = "Cagliari 1989",
-       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = NIR, G = Red and B = Green",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
  cagliari_plot_nrg2 <- ggRGB(cagliari_cropped[[2]], 4, 3, 2, stretch = "lin") +
    labs(title = "Cagliari 1996",
-       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = NIR, G = Red and B = Green",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
  cagliari_plot_nrg3 <- ggRGB(cagliari_cropped[[3]], 4, 3, 2, stretch = "lin") +
    labs(title = "Cagliari 2005",
-       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = NIR, G = Red and B = Green",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
  cagliari_plot_nrg4 <- ggRGB(cagliari_cropped[[4]], 4, 3, 2, stretch = "lin") +
    labs(title = "Cagliari 2017",
-       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat8 OLI/TIRS")
+       subtitle = "R = NIR, G = Red and B = Green",
+       caption = "Data source: Landsat8 OLI/TIRS") +
+  theme_void()
 
  cagliari_plot_nrg5 <- ggRGB(cagliari_cropped[[5]], 6, 5, 4, stretch = "lin") +
    labs(title = "Cagliari 2022",
-       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat9 OLI/TIRS")
+       subtitle = "R = NIR, G = Red and B = Green",
+       caption = "Data source: Landsat9 OLI/TIRS") +
+  theme_void()
 
 # grid.arrange (cagliari_plot_nrg1, cagliari_plot_nrg2, cagliari_plot_nrg3, cagliari_plot_nrg4, cagliari_plot_nrg5, nrow=2)
 
@@ -379,38 +353,33 @@ grid.arrange (cagliari_plot_nrg1, cagliari_plot_nrg5, nrow=1)
 
  cagliari_plot_ssr1 <- ggRGB(cagliari_cropped[[1]], 7, 5, 3, stretch = "lin") +
    labs(title = "Cagliari 1989",
-       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
  cagliari_plot_ssr2 <- ggRGB(cagliari_cropped[[2]], 7, 5, 3, stretch = "lin") +
    labs(title = "Cagliari 1996",
-       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
  cagliari_plot_ssr3 <- ggRGB(cagliari_cropped[[3]], 7, 5, 3, stretch = "lin") +
    labs(title = "Cagliari 2005",
-       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
  cagliari_plot_ssr4 <- ggRGB(cagliari_cropped[[4]], 7, 5, 3, stretch = "lin") +
    labs(title = "Cagliari 2017",
-       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat8 OLI/TIRS")
+       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
+       caption = "Data source: Landsat8 OLI/TIRS") +
+  theme_void()
 
  cagliari_plot_ssr5 <- ggRGB(cagliari_cropped[[5]], 8, 7, 5, stretch = "lin") +
    labs(title = "Cagliari 2022",
-       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat9 OLI/TIRS")
+       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
+       caption = "Data source: Landsat9 OLI/TIRS") +
+  theme_void()
 
 # grid.arrange (cagliari_plot_ssr1, cagliari_plot_ssr2, cagliari_plot_ssr3, cagliari_plot_ssr4, cagliari_plot_ssr5, nrow=2)
 
@@ -421,38 +390,33 @@ grid.arrange (cagliari_plot_ssr1, cagliari_plot_ssr5, nrow=1)
 
 cagliari_plot_s1nr1 <- ggRGB(cagliari_cropped[[1]], 5, 4, 3, stretch = "lin") +
    labs(title = "Cagliari 1989",
-       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR1, G = NIR and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
 cagliari_plot_s1nr2 <- ggRGB(cagliari_cropped[[2]], 5, 4, 3, stretch = "lin") +
    labs(title = "Cagliari 1996",
-       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR1, G = NIR and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
 cagliari_plot_s1nr3 <- ggRGB(cagliari_cropped[[3]], 5, 4, 3, stretch = "lin") +
    labs(title = "Cagliari 2005",
-       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR1, G = NIR and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
 cagliari_plot_s1nr4 <- ggRGB(cagliari_cropped[[4]], 5, 4, 3, stretch = "lin") +
    labs(title = "Cagliari 2017",
-       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat8 OLI/TIRS")
+       subtitle = "R = SWIR1, G = NIR and B = Red",
+       caption = "Data source: Landsat8 OLI/TIRS") +
+  theme_void()
 
 cagliari_plot_s1nr5 <- ggRGB(cagliari_cropped[[5]], 7, 6, 5, stretch = "lin") +
    labs(title = "Cagliari 2022",
-       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat9 OLI/TIRS")
+       subtitle = "R = SWIR1, G = NIR and B = Red",
+       caption = "Data source: Landsat9 OLI/TIRS") +
+  theme_void()
 
 grid.arrange (cagliari_plot_s1nr1, cagliari_plot_s1nr2, cagliari_plot_s1nr3, cagliari_plot_s1nr4, cagliari_plot_s1nr5, nrow=2)
 
@@ -463,38 +427,33 @@ grid.arrange (cagliari_plot_s1nr1, cagliari_plot_s1nr5, nrow=1)
 
 cagliari_plot_s2nr1 <- ggRGB(cagliari_cropped[[1]], 7, 4, 3, stretch = "lin") +
    labs(title = "Cagliari 1989",
-       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR2, G = NIR and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
 cagliari_plot_s2nr2 <- ggRGB(cagliari_cropped[[2]], 7, 4, 3, stretch = "lin") +
    labs(title = "Cagliari 1996",
-       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR2, G = NIR and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
 cagliari_plot_s2nr3 <- ggRGB(cagliari_cropped[[3]], 7, 4, 3, stretch = "lin") +
    labs(title = "Cagliari 2005",
-       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR2, G = NIR and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
 cagliari_plot_s2nr4 <- ggRGB(cagliari_cropped[[4]], 7, 4, 3, stretch = "lin") +
    labs(title = "Cagliari 2017",
-       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat8 OLI/TIRS")
+       subtitle = "R = SWIR2, G = NIR and B = Red",
+       caption = "Data source: Landsat8 OLI/TIRS") +
+  theme_void()
 
 cagliari_plot_s2nr5 <- ggRGB(cagliari_cropped[[5]], 8, 6, 5, stretch = "lin") +
    labs(title = "Cagliari 2022",
-       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat9 OLI/TIRS")
+       subtitle = "R = SWIR2, G = NIR and B = Red",
+       caption = "Data source: Landsat9 OLI/TIRS") +
+  theme_void()
 
 # grid.arrange (cagliari_plot_s2nr1, cagliari_plot_s2nr2, cagliari_plot_s2nr3, cagliari_plot_s2nr4, cagliari_plot_s2nr5, nrow=2)
 
@@ -507,38 +466,33 @@ grid.arrange (cagliari_plot_s2nr1, cagliari_plot_s2nr5, nrow=1)
 
  delta_plot_nrg1 <- ggRGB(delta_cropped[[1]], 4, 3, 2, stretch = "lin") +
    labs(title = "Po delta 1987",
-       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = NIR, G = Red and B = Green",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
  delta_plot_nrg2 <- ggRGB(delta_cropped[[2]], 4, 3, 2, stretch = "lin") +
    labs(title = "Po delta 1995",
-       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = NIR, G = Red and B = Green",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
  delta_plot_nrg3 <- ggRGB(delta_cropped[[3]], 4, 3, 2, stretch = "lin") +
    labs(title = "Po delta 2003",
-       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = NIR, G = Red and B = Green",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
  delta_plot_nrg4 <- ggRGB(delta_cropped[[4]], 4, 3, 2, stretch = "lin") +
    labs(title = "Po delta 2015",
-       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat7 ETM")
+       subtitle = "R = NIR, G = Red and B = Green",
+       caption = "Data source: Landsat7 ETM") +
+  theme_void()
 
  delta_plot_nrg5 <- ggRGB(delta_cropped[[5]], 6, 5, 4, stretch = "lin") +
    labs(title = "Po delta 2020",
-       subtitle = "False color image RGB plot with R = NIR, G = Red and B = Green bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat8 OLI/TIRS")
+       subtitle = "R = NIR, G = Red and B = Green",
+       caption = "Data source: Landsat8 OLI/TIRS") +
+  theme_void()
 
 # grid.arrange (delta_plot_nrg1, delta_plot_nrg2, delta_plot_nrg3, delta_plot_nrg4, delta_plot_nrg5, nrow=2)
 
@@ -553,38 +507,34 @@ grid.arrange (delta_plot_nrg4, delta_plot_nrg5, nrow=1)
 
  delta_plot_ssr1 <- ggRGB(delta_cropped[[1]], 7, 5, 3, stretch = "lin") +
    labs(title = "Po delta 1987",
-       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
  delta_plot_ssr2 <- ggRGB(delta_cropped[[2]], 7, 5, 3, stretch = "lin") +
    labs(title = "Po delta 1995",
-       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
  delta_plot_ssr3 <- ggRGB(delta_cropped[[3]], 7, 5, 3, stretch = "lin") +
    labs(title = "Po delta 2005",
-       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
  delta_plot_ssr4 <- ggRGB(delta_cropped[[4]], 7, 5, 3, stretch = "lin") +
    labs(title = "Po delta 2015",
-       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat7 ETM")
+       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
+       caption = "Data source: Landsat7 ETM") +
+  theme_void()
 
  delta_plot_ssr5 <- ggRGB(delta_cropped[[5]], 8, 7, 5, stretch = "lin") +
    labs(title = "Po delta 2020",
-       subtitle = "False color image RGB plot with R = SWIR1, G = SWIR2 and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat8 OLI/TIRS")
+       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
+       caption = "Data source: Landsat8 OLI/TIRS") +
+  theme_void() +
+  theme_void()
 
 # grid.arrange (delta_plot_ssr1, delta_plot_ssr2, delta_plot_ssr3, delta_plot_ssr4, delta_plot_ssr5, nrow=2)
 
@@ -597,38 +547,33 @@ grid.arrange (delta_plot_ssr4, delta_plot_ssr5, nrow=1)
 
 delta_plot_s1nr1 <- ggRGB(delta_cropped[[1]], 5, 4, 3, stretch = "lin") +
    labs(title = "Po delta 1987",
-       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR1, G = NIR and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
 delta_plot_s1nr2 <- ggRGB(delta_cropped[[2]], 5, 4, 3, stretch = "lin") +
    labs(title = "Po delta 1995",
-       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR1, G = NIR and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
 delta_plot_s1nr3 <- ggRGB(delta_cropped[[3]], 5, 4, 3, stretch = "lin") +
    labs(title = "Po delta 2003",
-       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR1, G = NIR and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
 delta_plot_s1nr4 <- ggRGB(delta_cropped[[4]], 5, 4, 3, stretch = "lin") +
    labs(title = "Po delta 2015",
-       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat7 ETM")
+       subtitle = "R = SWIR1, G = NIR and B = Red",
+       caption = "Data source: Landsat7 ETM") +
+  theme_void()
 
 delta_plot_s1nr5 <- ggRGB(delta_cropped[[5]], 7, 6, 5, stretch = "lin") +
    labs(title = "Po delta 2020",
-       subtitle = "False color image RGB plot with R = SWIR1, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat8 OLI/TIRS")
+       subtitle = "R = SWIR1, G = NIR and B = Red",
+       caption = "Data source: Landsat8 OLI/TIRS") +
+  theme_void()
 
 # grid.arrange (delta_plot_s1nr1, delta_plot_s1nr2, delta_plot_s1nr3, delta_plot_s1nr4, delta_plot_s1nr5, nrow=2)
 
@@ -639,40 +584,36 @@ grid.arrange (delta_plot_s1nr1, delta_plot_s1nr5, nrow=1)
 
 delta_plot_s2nr1 <- ggRGB(delta_cropped[[1]], 7, 4, 3, stretch = "lin") +
    labs(title = "Po delta 1987",
-       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR2, G = NIR and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
 delta_plot_s2nr2 <- ggRGB(delta_cropped[[2]], 7, 4, 3, stretch = "lin") +
    labs(title = "Po delta 1995",
-       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR2, G = NIR and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
 delta_plot_s2nr3 <- ggRGB(delta_cropped[[3]], 7, 4, 3, stretch = "lin") +
    labs(title = "Po delta 2003",
-       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat4 TM")
+       subtitle = "R = SWIR2, G = NIR and B = Red",
+       caption = "Data source: Landsat4 TM") +
+  theme_void()
 
 delta_plot_s2nr4 <- ggRGB(delta_cropped[[4]], 7, 4, 3, stretch = "lin") +
    labs(title = "Po delta 2015",
-       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat7 ETM")
+       subtitle = "R = SWIR2, G = NIR and B = Red",
+       caption = "Data source: Landsat7 ETM") +
+  theme_void()
 
 delta_plot_s2nr5 <- ggRGB(delta_cropped[[5]], 8, 6, 5, stretch = "lin") +
    labs(title = "Po delta 2020",
-       subtitle = "False color image RGB plot with R = SWIR2, G = NIR and B = Red bands",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat8 OLI/TIRS")
+       subtitle = "R = SWIR2, G = NIR and B = Red",
+       caption = "Data source: Landsat8 OLI/TIRS") +
+  theme_void()
 
-# grid.arrange (delta_plot_s2nr1, delta_plot_s2nr2, delta_plot_s2nr3, delta_plot_s2nr4, delta_plot_s2nr5, nrow=2)
+delta_falsecolor_plot <- grid.arrange (delta_plot_s2nr1, delta_plot_s2nr2, delta_plot_s2nr3, delta_plot_s2nr4, delta_plot_s2nr5, nrow=2)
+ggsave("delta_falcecolor_plot.jpeg", plot = delta_falsecolor_plot)
 
 grid.arrange (delta_plot_s2nr1, delta_plot_s2nr5, nrow=1)
 grid.arrange (delta_plot_s2nr2, delta_plot_s2nr5, nrow=1)
@@ -698,9 +639,8 @@ oristano_ndvi_plot <-
   scale_fill_viridis("viridis") + 
   labs(title = "Oristano",
        subtitle = "Difference in NDVI index between 1989 and 2023",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat 4 and 9 images")
+       caption = "Data source: Landsat 4 and 9 images") +
+  theme_void()
 ggsave("oristano_ndvi_diff_plot.jpeg", plot = oristano_ndvi_plot)
 
 
@@ -712,9 +652,8 @@ oristano_ndwi_plot <-
   scale_fill_viridis("viridis") + 
   labs(title = "Oristano",
        subtitle = "Difference in NDWI index between 1989 and 2023",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat 4 and 9 images")
+       caption = "Data source: Landsat 4 and 9 images") +
+  theme_void()
 ggsave("oristano_ndwi_diff_plot.jpeg", plot = oristano_ndwi_plot)
 
 
@@ -726,9 +665,8 @@ oristano_ndwi2_plot <-
   scale_fill_viridis("viridis") + 
   labs(title = "Oristano",
        subtitle = "Difference in NDWI2 index between 1989 and 2023",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat 4 and 9 images")
+       caption = "Data source: Landsat 4 and 9 images") +
+  theme_void()
 ggsave("oristano_ndwi2_diff_plot.jpeg", plot = oristano_ndwi2_plot)
 
 
@@ -740,9 +678,8 @@ oristano_slavi_plot <-
   scale_fill_viridis("viridis") + 
   labs(title = "Oristano",
        subtitle = "Difference in SLAVI index between 1989 and 2023",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat 4 and 9 images")
+       caption = "Data source: Landsat 4 and 9 images") +
+  theme_void()
 ggsave("oristano_slavi_diff_plot.jpeg", plot = oristano_slavi_plot)
 
 
@@ -762,9 +699,8 @@ cagliari_ndvi_plot <-
   scale_fill_viridis("viridis") + 
   labs(title = "Cagliari",
        subtitle = "Difference in NDVI index between 1989 and 2022",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat 4 and 9 images")
+       caption = "Data source: Landsat 4 and 9 images") +
+  theme_void()
 ggsave("cagliari_ndvi_diff_plot.jpeg", plot = cagliari_ndvi_plot)
 
 
@@ -776,9 +712,8 @@ cagliari_ndwi_plot <-
   scale_fill_viridis("viridis") + 
   labs(title = "Cagliari",
        subtitle = "Difference in NDWI index between 1989 and 2022",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat 4 and 9 images")
+       caption = "Data source: Landsat 4 and 9 images") +
+  theme_void()
 ggsave("cagliari_ndwi_diff_plot.jpeg", plot = cagliari_ndwi_plot)
 
 
@@ -790,9 +725,8 @@ cagliari_ndwi2_plot <-
   scale_fill_viridis("viridis") + 
   labs(title = "Cagliari",
        subtitle = "Difference in NDWI2 index between 1989 and 2022",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat 4 and 9 images")
+       caption = "Data source: Landsat 4 and 9 images") +
+  theme_void()
 ggsave("cagliari_ndwi2_diff_plot.jpeg", plot = cagliari_ndwi2_plot)
 
 
@@ -804,9 +738,8 @@ cagliari_slavi_plot <-
   scale_fill_viridis("viridis") + 
   labs(title = "Cagliari",
        subtitle = "Difference in SLAVI index between 1989 and 2022",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat 4 and 9 images")
+       caption = "Data source: Landsat 4 and 9 images") +
+  theme_void()
 ggsave("cagliari_slavi_diff_plot.jpeg", plot = cagliari_slavi_plot)
 
     ## Po delta indices
@@ -825,9 +758,8 @@ delta_ndvi_plot <-
   scale_fill_viridis("viridis") + 
   labs(title = "Po delta",
        subtitle = "Difference in NDVI index between 1987 and 2020",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat 4 and 8 images")
+       caption = "Data source: Landsat 4 and 8 images") +
+  theme_void()
 ggsave("delta_ndvi_diff_plot.jpeg", plot = delta_ndvi_plot)
 
 delta_ndwi_diff <- delta20_indices$NDWI - delta87_indices$NDWI
@@ -838,9 +770,8 @@ delta_ndwi_plot <-
   scale_fill_viridis("viridis") + 
   labs(title = "Po delta",
        subtitle = "Difference in NDWI index between 1987 and 2020",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat 4 and 8 images")
+       caption = "Data source: Landsat 4 and 8 images") +
+  theme_void()
 ggsave("delta_ndwi_diff_plot.jpeg", plot = delta_ndwi_plot)
 
 delta_ndwi2_diff <- delta20_indices$NDWI2 - delta87_indices$NDWI2
@@ -851,22 +782,20 @@ delta_ndwi2_plot <-
   scale_fill_viridis("viridis") + 
   labs(title = "Po delta",
        subtitle = "Difference in NDWI2 index between 1987 and 2020",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat 4 and 8 images")
+       caption = "Data source: Landsat 4 and 8 images") +
+  theme_void()
 ggsave("delta_ndwi2_diff_plot.jpeg", plot = delta_ndwi2_plot)
 
 delta_slavi_diff <- delta20_indices$SLAVI - delta87_indices$SLAVI
 
 delta_slavi_plot <-
- ggplot()+
-  geom_raster(delta_slavi_diff, mapping = aes(x=x, y=y, fill = layer))+
-  scale_fill_viridis("viridis") + 
+ ggplot() +
+  geom_raster(delta_slavi_diff, mapping = aes(x=x, y=y, fill = layer)) +
+  scale_fill_viridis() + 
   labs(title = "Po delta",
        subtitle = "Difference in SLAVI index between 1987 and 2020",
-       x = "Longitude",
-       y = "Latitude",
-       caption = "Data source: Landsat 4 and 8 images")
+       caption = "Data source: Landsat 4 and 8 images") +
+  theme_void()
 ggsave("delta_slavi_diff_plot.jpeg", plot = delta_slavi_plot)
     
 
@@ -999,44 +928,38 @@ data_birds <- data_birds_raw%>%
   group_by(population_trend)
 
 
-ggplot(data_birds, aes(x = "", y = population_size_max, fill = population_trend)) + 
-  geom_bar(width = 1, stat = "identity") +
-  geom_col(color = "white") +
-  geom_text(aes(label = common_speciesname),
-            position = position_stack(vjust = 2)) +
-  coord_polar("y", start = 0) +
-  scale_fill_manual(values = c("#BE2A3E", "#EC754A",
-                               "#EACF65", "#3C8D53"))+
-  theme_void()
-
-
 birds_pop_trend <- data_birds%>%
 count(population_trend)
 
-ggplot(birds_pop_trend, aes(x = "", y = n, fill = population_trend)) +
-  geom_col(color = "black") +
-  coord_polar(theta = "y")+
-  guides(fill = guide_legend(title = "Population trend")) +
-  scale_fill_manual(values = c("#BE2A3E", "#3C8D53", "#EC754A", "#000000"),
-                    labels = c("Decreasing", "Increasing", "Stable", "Unknown")) +
-  theme_void()+ 
-  ggtitle("Populations trends of european sea- and shorebirds (2007 - 2018)")
+pop_trend_plot <- ggplot(birds_pop_trend, aes(x = "", y = n, fill = population_trend)) +
+                      geom_col(color = "black")+
+                      geom_text(aes(label = n),
+                                color = "white",
+                                position = position_stack(vjust = 0.5)) +
+                      coord_polar(theta = "y")+
+                      guides(fill = guide_legend(title = "Population trend")) +
+                      scale_fill_manual(values = c("#BE2A3E", "#3C8D53", "#EC754A", "#000000"),
+                                        labels = c("Decreasing", "Increasing", "Stable", "Unknown")) +
+                      theme_void()+ 
+                      ggtitle("       Populations trends of european seabirds and shorebirds (2007 - 2018)")
+
 
 birds_pop_trend_long <- data_birds%>%
 group_by(population_trend_long)%>%
 count(population_trend_long)
 
-birds_pop_trend_long[,2:3]
-
-ggplot(birds_pop_trend_long, aes(x = "", y = n, fill = population_trend_long)) +
-  geom_col(color = "black") +
-  coord_polar(theta = "y")+
-  guides(fill = guide_legend(title = "Population trend
-  (1991-2018)")) +
-  scale_fill_manual(values = c("#BE2A3E", "#3C8D53", "#EC754A", "#000000"),
-                    labels = c("Decreasing", "Increasing", "Stable", "Unknown")) +
-  theme_void()+ 
-  ggtitle("Pie Chart Example")
+pop_trend_long_plot <- ggplot(birds_pop_trend_long, aes(x = "", y = n, fill = population_trend_long)) +
+                          geom_col(color = "black")+
+                          geom_text(aes(label = n),
+                                    color = "white",
+                                    position = position_stack(vjust = 0.5)) +
+                          coord_polar(theta = "y")+
+                          guides(fill = guide_legend(title = "Population trend
+                          (1991-2018)")) +
+                          scale_fill_manual(values = c("#BE2A3E", "#3C8D53", "#EC754A", "#000000"),
+                                            labels = c("Decreasing", "Increasing", "Stable", "Unknown")) +
+                          theme_void()+ 
+                          ggtitle("       Populations trends of european seabirds and shorebirds (1991 - 2018)")
 
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
