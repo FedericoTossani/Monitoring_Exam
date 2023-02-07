@@ -789,7 +789,12 @@ ggsave("oristano_slavi_diff_plot.jpeg", plot = oristano_slavi_plot)
 
     ## Cagliari indices
 
-cagliari89_indices <- RStoolbox::spectralIndices(cagliari_cropped[[1]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
+cagliari89_indices <- RStoolbox::spectralIndices(cagliari_cropped[[1]],
+                                                 blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, 
+                                                 indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
+
+
+
 cagliari96_indices <- RStoolbox::spectralIndices(cagliari_cropped[[2]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
 cagliari05_indices <- RStoolbox::spectralIndices(cagliari_cropped[[3]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
 cagliari17_indices <- RStoolbox::spectralIndices(cagliari_cropped[[4]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
@@ -981,6 +986,10 @@ plot(delta_lcc[[5]]$map)
 #prop5 <- freq(cagliari_lcc[[5]]$map)/tot2
 
 
+# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
+
+# WHY THIS DOESN'T WORK??? #
+
 # Load the data into a list
 #cagliari_lcc <- list(cagliari84_lcc, cagliari93_lcc, cagliari02_lcc, cagliari11_lcc, cagliari21_lcc)
 
@@ -1005,9 +1014,7 @@ plot(delta_lcc[[5]]$map)
 #}
 
 
-# - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-
-# WHY THIS DOESN'T WORK??? #
+# ALSO THIS DOESN'T WORK!!!
 
 # delta_lcc <- list()
 
