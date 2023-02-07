@@ -70,7 +70,7 @@ oristano_img <- lapply(oristano_list, brick)
 crop_file <- function(oristano_img) {
  
   # Create the extent object
- ext_oristano <- extent(442938.9, 473086.2, 4389311, 4436271)
+  ext_oristano <- extent(442938.9, 473086.2, 4389311, 4436271)
   
   # Crop the raster object with the extent
   cropped_img <- crop(oristano_img, ext_oristano)
@@ -164,12 +164,12 @@ data_birds_raw <- read.csv("data_birds.csv")
 data_taxbirds <- read.csv("bird_check_list.csv")
 
 source <- data_birds_raw%>%
-  dplyr::select(matches("_source"))%>%
-  colnames()
+                dplyr::select(matches("_source"))%>%
+                colnames()
 
 data_taxbirds <- data_taxbirds%>%
-  dplyr::select("speciescode", "speciesname","taxOrder", "taxFamily", "taxGroup_en", "taxFamily_en")%>%
-  distinct(.keep_all = TRUE)
+                      dplyr::select("speciescode", "speciesname","taxOrder", "taxFamily", "taxGroup_en", "taxFamily_en")%>%
+                      distinct(.keep_all = TRUE)
 
 
 variable <- c("country", "season","speciescode", "speciesname", "common_speciesname", "population_date",
@@ -179,13 +179,13 @@ variable <- c("country", "season","speciescode", "speciesname", "common_speciesn
               "population_trend_long_method", "taxGroup_en")
 
 data_birds <- data_birds_raw%>%
-  dplyr::select(-which(names(data_birds_raw) %in% source))%>%  
-  filter(country == "IT", season == "W")%>%
-  left_join(data_taxbirds, by = c("speciescode", "speciesname"), keep = F)%>%
-  dplyr::select(all_of(variable))%>%
-  filter(taxGroup_en != "Hawks and Eagles")%>%
-  arrange(speciescode, sort = T)%>%
-  group_by(population_trend)
+                    dplyr::select(-which(names(data_birds_raw) %in% source))%>%  
+                    filter(country == "IT", season == "W")%>%
+                    left_join(data_taxbirds, by = c("speciescode", "speciesname"), keep = F)%>%
+                    dplyr::select(all_of(variable))%>%
+                    filter(taxGroup_en != "Hawks and Eagles")%>%
+                    arrange(speciescode, sort = T)%>%
+                    group_by(population_trend)
 
 
 birds_pop_trend <- data_birds%>%
@@ -198,10 +198,12 @@ pop_trend_plot <- ggplot(birds_pop_trend, aes(x = "", y = n, fill = population_t
                                 position = position_stack(vjust = 0.5)) +
                       coord_polar(theta = "y")+
                       guides(fill = guide_legend(title = "Population trend")) +
-                      scale_fill_manual(values = c("#BE2A3E", "#3C8D53", "#EC754A", "#000000"),
+                      scale_fill_manual(values = c("#FF4E4E", "#42AF32", "#FFA926", "#000000"),
                                         labels = c("Decreasing", "Increasing", "Stable", "Unknown")) +
                       theme_void()+ 
                       ggtitle("       Populations trends of italian wintering seabirds and shorebirds (2007 - 2015)")
+
+ggsave("pop_trend_plot.jpeg", plot = pop_trend_plot)
 
 
 birds_pop_trend_long <- data_birds%>%
@@ -214,21 +216,25 @@ pop_trend_long_plot <- ggplot(birds_pop_trend_long, aes(x = "", y = n, fill = po
                                     color = "white",
                                     position = position_stack(vjust = 0.5)) +
                           coord_polar(theta = "y")+
-                          guides(fill = guide_legend(title = "Population trend
-                          (1991-2018)")) +
-                          scale_fill_manual(values = c("#BE2A3E", "#3C8D53", "#EC754A", "#000000"),
+                          guides(fill = guide_legend(title = "Population trend")) +
+                          scale_fill_manual(values = c("#FF4E4E", "#42AF32", "#FFA926", "#000000"),
                                             labels = c("Decreasing", "Increasing", "Stable", "Unknown")) +
                           theme_void()+ 
                           ggtitle("       Populations trends of italian wintering seabirds and shorebirds (1991 - 2015)")
+
+ggsave("pop_trend_long_plot.jpeg", plot = pop_trend_long_plot)
 
 
 data_birds_list <- data_birds%>%
                         dplyr::select("speciesname", "common_speciesname", "population_trend_period", "population_trend",
                                       "population_trend_long_period", "population_trend_long", "taxGroup_en")%>%
-                        rename("pop_trend_period" = "population_trend_period",
+                        rename("species_name" = "speciesname",
+                               "italian_name" = "common_speciesname",
+                               "pop_trend_period" = "population_trend_period",
                                "pop_trend" = "population_trend",
                                "pop_trend_long_period" = "population_trend_long_period",
-                               "pop_trend_long" = "population_trend_long")%>%
+                               "pop_trend_long" = "population_trend_long",
+                               "taxonomic_group" = "taxGroup_en")%>%
                         arrange(pop_trend_long)
                                
 
@@ -254,11 +260,11 @@ stargazer(data_birds_list,
        caption = "Data source: Landsat4 TM") +
   theme_void()
 
- oristano_plot_nrg2 <- ggRGB(oristano_cropped[[2]], 4, 3, 2, stretch = "lin") +
-   labs(title = "Oristano 1999",
-       subtitle = "R = NIR, G = Red and B = Green",
-       caption = "Data source: Landsat4 TM") +
-  theme_void()
+# oristano_plot_nrg2 <- ggRGB(oristano_cropped[[2]], 4, 3, 2, stretch = "lin") +
+#   labs(title = "Oristano 1999",
+#       subtitle = "R = NIR, G = Red and B = Green",
+#       caption = "Data source: Landsat4 TM") +
+#  theme_void()
 
  oristano_plot_nrg3 <- ggRGB(oristano_cropped[[3]], 4, 3, 2, stretch = "lin") +
    labs(title = "Oristano 2007",
@@ -278,9 +284,10 @@ stargazer(data_birds_list,
        caption = "Data source: Landsat9 OLI/TIRS") +
   theme_void()
 
-grid.arrange (oristano_plot_nrg1, oristano_plot_nrg2, oristano_plot_nrg3, oristano_plot_nrg4, oristano_plot_nrg5, nrow=2)
+oristano_nrg_full_plot <- grid.arrange (oristano_plot_nrg1,  oristano_plot_nrg3, oristano_plot_nrg4, oristano_plot_nrg5, nrow=2)
+ggsave("oristano_nrg_plot.jpeg", plot = oristano_nrg_full_plot)
 
-grid.arrange (oristano_plot_nrg3, oristano_plot_nrg5, nrow=1)
+#grid.arrange (oristano_plot_nrg3, oristano_plot_nrg5, nrow=1)
 
 
 # R = swir, G = swir, B = red
@@ -291,11 +298,11 @@ grid.arrange (oristano_plot_nrg3, oristano_plot_nrg5, nrow=1)
        caption = "Data source: Landsat4 TM") +
   theme_void()
 
- oristano_plot_ssr2 <- ggRGB(oristano_cropped[[2]], 7, 5, 3, stretch = "lin") +
-   labs(title = "Oristano 1999",
-       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
-       caption = "Data source: Landsat4 TM") +
-  theme_void()
+# oristano_plot_ssr2 <- ggRGB(oristano_cropped[[2]], 7, 5, 3, stretch = "lin") +
+#   labs(title = "Oristano 1999",
+#       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
+#       caption = "Data source: Landsat4 TM") +
+#  theme_void()
 
  oristano_plot_ssr3 <- ggRGB(oristano_cropped[[3]], 7, 5, 3, stretch = "lin") +
    labs(title = "Oristano 2007",
@@ -315,7 +322,7 @@ grid.arrange (oristano_plot_nrg3, oristano_plot_nrg5, nrow=1)
        caption = "Data source: Landsat9 OLI/TIRS") +
   theme_void()
 
-# grid.arrange (oristano_plot_ssr1, oristano_plot_ssr2, oristano_plot_ssr3, oristano_plot_ssr4,oristano_ plot_ssr5, nrow=2)
+# grid.arrange (oristano_plot_ssr1, oristano_plot_ssr3, oristano_plot_ssr4,oristano_ plot_ssr5, nrow=2)
 
 grid.arrange (oristano_plot_ssr4, oristano_plot_ssr5, nrow=1)
 
@@ -328,11 +335,11 @@ oristano_plot_s1nr1 <- ggRGB(oristano_cropped[[1]], 5, 4, 3, stretch = "lin") +
        caption = "Data source: Landsat4 TM") +
   theme_void()
 
-oristano_plot_s1nr2 <- ggRGB(oristano_cropped[[2]], 5, 4, 3, stretch = "lin") +
-   labs(title = "Oristano 1999",
-        subtitle = "R = SWIR1, G = NIR and B = Red",
-       caption = "Data source: Landsat4 TM") +
-  theme_void()
+#oristano_plot_s1nr2 <- ggRGB(oristano_cropped[[2]], 5, 4, 3, stretch = "lin") +
+#   labs(title = "Oristano 1999",
+#        subtitle = "R = SWIR1, G = NIR and B = Red",
+#       caption = "Data source: Landsat4 TM") +
+#  theme_void()
 
 oristano_plot_s1nr3 <- ggRGB(oristano_cropped[[3]], 5, 4, 3, stretch = "lin") +
    labs(title = "Oristano 2007",
@@ -352,7 +359,7 @@ oristano_plot_s1nr5 <- ggRGB(oristano_cropped[[5]], 7, 6, 5, stretch = "lin") +
        caption = "Data source: Landsat9 OLI/TIRS") +
   theme_void()
 
-# grid.arrange (oristano_plot_s1nr1, oristano_plot_s1nr2, oristano_plot_s1nr3, oristano_plot_s1nr4, oristano_plot_s1nr5, nrow=2)
+# grid.arrange (oristano_plot_s1nr1, oristano_plot_s1nr3, oristano_plot_s1nr4, oristano_plot_s1nr5, nrow=2)
 
 grid.arrange (oristano_plot_s1nr1, oristano_plot_s1nr5, nrow=1)
 
@@ -365,11 +372,11 @@ oristano_plot_s2nr1 <- ggRGB(oristano_cropped[[1]], 7, 4, 3, stretch = "lin") +
        caption = "Data source: Landsat4 TM") +
   theme_void()
 
-oristano_plot_s2nr2 <- ggRGB(oristano_cropped[[2]], 7, 4, 3, stretch = "lin") +
-   labs(title = "Oristano 1999",
-       subtitle = "R = SWIR2, G = NIR and B = Red",
-       caption = "Data source: Landsat4 TM") +
-  theme_void()
+#oristano_plot_s2nr2 <- ggRGB(oristano_cropped[[2]], 7, 4, 3, stretch = "lin") +
+#   labs(title = "Oristano 1999",
+#       subtitle = "R = SWIR2, G = NIR and B = Red",
+#       caption = "Data source: Landsat4 TM") +
+#  theme_void()
 
 oristano_plot_s2nr3 <- ggRGB(oristano_cropped[[3]], 7, 4, 3, stretch = "lin") +
    labs(title = "Oristano 2007",
@@ -389,7 +396,7 @@ oristano_plot_s2nr5 <- ggRGB(oristano_cropped[[5]], 8, 6, 5, stretch = "lin") +
        caption = "Data source: Landsat9 OLI/TIRS") +
   theme_void()
 
-# grid.arrange (oristano_plot_s2nr1, oristano_plot_s2nr2, oristano_plot_s2nr3, oristano_plot_s2nr4, oristano_plot_s2nr5, nrow=2)
+# grid.arrange (oristano_plot_s2nr1, oristano_plot_s2nr3, oristano_plot_s2nr4, oristano_plot_s2nr5, nrow=2)
 
 grid.arrange (oristano_plot_s2nr1, oristano_plot_s2nr5, nrow=1)
 
@@ -404,11 +411,11 @@ grid.arrange (oristano_plot_s2nr1, oristano_plot_s2nr5, nrow=1)
        caption = "Data source: Landsat4 TM") +
   theme_void()
 
- cagliari_plot_nrg2 <- ggRGB(cagliari_cropped[[2]], 4, 3, 2, stretch = "lin") +
-   labs(title = "Cagliari 1996",
-       subtitle = "R = NIR, G = Red and B = Green",
-       caption = "Data source: Landsat4 TM") +
-  theme_void()
+# cagliari_plot_nrg2 <- ggRGB(cagliari_cropped[[2]], 4, 3, 2, stretch = "lin") +
+#   labs(title = "Cagliari 1996",
+#       subtitle = "R = NIR, G = Red and B = Green",
+#       caption = "Data source: Landsat4 TM") +
+#  theme_void()
 
  cagliari_plot_nrg3 <- ggRGB(cagliari_cropped[[3]], 4, 3, 2, stretch = "lin") +
    labs(title = "Cagliari 2005",
@@ -428,7 +435,7 @@ grid.arrange (oristano_plot_s2nr1, oristano_plot_s2nr5, nrow=1)
        caption = "Data source: Landsat9 OLI/TIRS") +
   theme_void()
 
-# grid.arrange (cagliari_plot_nrg1, cagliari_plot_nrg2, cagliari_plot_nrg3, cagliari_plot_nrg4, cagliari_plot_nrg5, nrow=2)
+# grid.arrange (cagliari_plot_nrg1, cagliari_plot_nrg3, cagliari_plot_nrg4, cagliari_plot_nrg5, nrow=2)
 
 grid.arrange (cagliari_plot_nrg1, cagliari_plot_nrg5, nrow=1)
 
@@ -441,11 +448,11 @@ grid.arrange (cagliari_plot_nrg1, cagliari_plot_nrg5, nrow=1)
        caption = "Data source: Landsat4 TM") +
   theme_void()
 
- cagliari_plot_ssr2 <- ggRGB(cagliari_cropped[[2]], 7, 5, 3, stretch = "lin") +
-   labs(title = "Cagliari 1996",
-       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
-       caption = "Data source: Landsat4 TM") +
-  theme_void()
+# cagliari_plot_ssr2 <- ggRGB(cagliari_cropped[[2]], 7, 5, 3, stretch = "lin") +
+#   labs(title = "Cagliari 1996",
+#       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
+#       caption = "Data source: Landsat4 TM") +
+#  theme_void()
 
  cagliari_plot_ssr3 <- ggRGB(cagliari_cropped[[3]], 7, 5, 3, stretch = "lin") +
    labs(title = "Cagliari 2005",
@@ -465,7 +472,7 @@ grid.arrange (cagliari_plot_nrg1, cagliari_plot_nrg5, nrow=1)
        caption = "Data source: Landsat9 OLI/TIRS") +
   theme_void()
 
-# grid.arrange (cagliari_plot_ssr1, cagliari_plot_ssr2, cagliari_plot_ssr3, cagliari_plot_ssr4, cagliari_plot_ssr5, nrow=2)
+# grid.arrange (cagliari_plot_ssr1, cagliari_plot_ssr3, cagliari_plot_ssr4, cagliari_plot_ssr5, nrow=2)
 
 grid.arrange (cagliari_plot_ssr1, cagliari_plot_ssr5, nrow=1)
 
@@ -478,11 +485,11 @@ cagliari_plot_s1nr1 <- ggRGB(cagliari_cropped[[1]], 5, 4, 3, stretch = "lin") +
        caption = "Data source: Landsat4 TM") +
   theme_void()
 
-cagliari_plot_s1nr2 <- ggRGB(cagliari_cropped[[2]], 5, 4, 3, stretch = "lin") +
-   labs(title = "Cagliari 1996",
-       subtitle = "R = SWIR1, G = NIR and B = Red",
-       caption = "Data source: Landsat4 TM") +
-  theme_void()
+#cagliari_plot_s1nr2 <- ggRGB(cagliari_cropped[[2]], 5, 4, 3, stretch = "lin") +
+#   labs(title = "Cagliari 1996",
+#       subtitle = "R = SWIR1, G = NIR and B = Red",
+#       caption = "Data source: Landsat4 TM") +
+#  theme_void()
 
 cagliari_plot_s1nr3 <- ggRGB(cagliari_cropped[[3]], 5, 4, 3, stretch = "lin") +
    labs(title = "Cagliari 2005",
@@ -502,7 +509,7 @@ cagliari_plot_s1nr5 <- ggRGB(cagliari_cropped[[5]], 7, 6, 5, stretch = "lin") +
        caption = "Data source: Landsat9 OLI/TIRS") +
   theme_void()
 
-grid.arrange (cagliari_plot_s1nr1, cagliari_plot_s1nr2, cagliari_plot_s1nr3, cagliari_plot_s1nr4, cagliari_plot_s1nr5, nrow=2)
+grid.arrange (cagliari_plot_s1nr1, cagliari_plot_s1nr3, cagliari_plot_s1nr4, cagliari_plot_s1nr5, nrow=2)
 
 grid.arrange (cagliari_plot_s1nr1, cagliari_plot_s1nr5, nrow=1)
 
@@ -515,11 +522,11 @@ cagliari_plot_s2nr1 <- ggRGB(cagliari_cropped[[1]], 7, 4, 3, stretch = "lin") +
        caption = "Data source: Landsat4 TM") +
   theme_void()
 
-cagliari_plot_s2nr2 <- ggRGB(cagliari_cropped[[2]], 7, 4, 3, stretch = "lin") +
-   labs(title = "Cagliari 1996",
-       subtitle = "R = SWIR2, G = NIR and B = Red",
-       caption = "Data source: Landsat4 TM") +
-  theme_void()
+#cagliari_plot_s2nr2 <- ggRGB(cagliari_cropped[[2]], 7, 4, 3, stretch = "lin") +
+#   labs(title = "Cagliari 1996",
+#       subtitle = "R = SWIR2, G = NIR and B = Red",
+#       caption = "Data source: Landsat4 TM") +
+#  theme_void()
 
 cagliari_plot_s2nr3 <- ggRGB(cagliari_cropped[[3]], 7, 4, 3, stretch = "lin") +
    labs(title = "Cagliari 2005",
@@ -539,7 +546,7 @@ cagliari_plot_s2nr5 <- ggRGB(cagliari_cropped[[5]], 8, 6, 5, stretch = "lin") +
        caption = "Data source: Landsat9 OLI/TIRS") +
   theme_void()
 
-# grid.arrange (cagliari_plot_s2nr1, cagliari_plot_s2nr2, cagliari_plot_s2nr3, cagliari_plot_s2nr4, cagliari_plot_s2nr5, nrow=2)
+# grid.arrange (cagliari_plot_s2nr1, cagliari_plot_s2nr3, cagliari_plot_s2nr4, cagliari_plot_s2nr5, nrow=2)
 
 grid.arrange (cagliari_plot_s2nr1, cagliari_plot_s2nr5, nrow=1)
 
@@ -554,11 +561,11 @@ grid.arrange (cagliari_plot_s2nr1, cagliari_plot_s2nr5, nrow=1)
        caption = "Data source: Landsat4 TM") +
   theme_void()
 
- delta_plot_nrg2 <- ggRGB(delta_cropped[[2]], 4, 3, 2, stretch = "lin") +
-   labs(title = "Po delta 1995",
-       subtitle = "R = NIR, G = Red and B = Green",
-       caption = "Data source: Landsat4 TM") +
-  theme_void()
+# delta_plot_nrg2 <- ggRGB(delta_cropped[[2]], 4, 3, 2, stretch = "lin") +
+#   labs(title = "Po delta 1995",
+#       subtitle = "R = NIR, G = Red and B = Green",
+#       caption = "Data source: Landsat4 TM") +
+#  theme_void()
 
  delta_plot_nrg3 <- ggRGB(delta_cropped[[3]], 4, 3, 2, stretch = "lin") +
    labs(title = "Po delta 2003",
@@ -578,10 +585,9 @@ grid.arrange (cagliari_plot_s2nr1, cagliari_plot_s2nr5, nrow=1)
        caption = "Data source: Landsat8 OLI/TIRS") +
   theme_void()
 
-# grid.arrange (delta_plot_nrg1, delta_plot_nrg2, delta_plot_nrg3, delta_plot_nrg4, delta_plot_nrg5, nrow=2)
+# grid.arrange (delta_plot_nrg1, delta_plot_nrg3, delta_plot_nrg4, delta_plot_nrg5, nrow=2)
 
 grid.arrange (delta_plot_nrg1, delta_plot_nrg5, nrow=1)
-grid.arrange (delta_plot_nrg2, delta_plot_nrg5, nrow=1)
 grid.arrange (delta_plot_nrg3, delta_plot_nrg5, nrow=1)
 grid.arrange (delta_plot_nrg4, delta_plot_nrg5, nrow=1)
 
@@ -595,11 +601,11 @@ grid.arrange (delta_plot_nrg4, delta_plot_nrg5, nrow=1)
        caption = "Data source: Landsat4 TM") +
   theme_void()
 
- delta_plot_ssr2 <- ggRGB(delta_cropped[[2]], 7, 5, 3, stretch = "lin") +
-   labs(title = "Po delta 1995",
-       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
-       caption = "Data source: Landsat4 TM") +
-  theme_void()
+# delta_plot_ssr2 <- ggRGB(delta_cropped[[2]], 7, 5, 3, stretch = "lin") +
+#   labs(title = "Po delta 1995",
+#       subtitle = "R = SWIR1, G = SWIR2 and B = Red",
+#       caption = "Data source: Landsat4 TM") +
+#  theme_void()
 
  delta_plot_ssr3 <- ggRGB(delta_cropped[[3]], 7, 5, 3, stretch = "lin") +
    labs(title = "Po delta 2005",
@@ -620,7 +626,7 @@ grid.arrange (delta_plot_nrg4, delta_plot_nrg5, nrow=1)
   theme_void() +
   theme_void()
 
-# grid.arrange (delta_plot_ssr1, delta_plot_ssr2, delta_plot_ssr3, delta_plot_ssr4, delta_plot_ssr5, nrow=2)
+# grid.arrange (delta_plot_ssr1, delta_plot_ssr3, delta_plot_ssr4, delta_plot_ssr5, nrow=2)
 
 grid.arrange (delta_plot_ssr1, delta_plot_ssr5, nrow=1)
 grid.arrange (delta_plot_ssr2, delta_plot_ssr5, nrow=1)
@@ -635,11 +641,11 @@ delta_plot_s1nr1 <- ggRGB(delta_cropped[[1]], 5, 4, 3, stretch = "lin") +
        caption = "Data source: Landsat4 TM") +
   theme_void()
 
-delta_plot_s1nr2 <- ggRGB(delta_cropped[[2]], 5, 4, 3, stretch = "lin") +
-   labs(title = "Po delta 1995",
-       subtitle = "R = SWIR1, G = NIR and B = Red",
-       caption = "Data source: Landsat4 TM") +
-  theme_void()
+#delta_plot_s1nr2 <- ggRGB(delta_cropped[[2]], 5, 4, 3, stretch = "lin") +
+#   labs(title = "Po delta 1995",
+#       subtitle = "R = SWIR1, G = NIR and B = Red",
+#       caption = "Data source: Landsat4 TM") +
+#  theme_void()
 
 delta_plot_s1nr3 <- ggRGB(delta_cropped[[3]], 5, 4, 3, stretch = "lin") +
    labs(title = "Po delta 2003",
@@ -659,7 +665,7 @@ delta_plot_s1nr5 <- ggRGB(delta_cropped[[5]], 7, 6, 5, stretch = "lin") +
        caption = "Data source: Landsat8 OLI/TIRS") +
   theme_void()
 
-# grid.arrange (delta_plot_s1nr1, delta_plot_s1nr2, delta_plot_s1nr3, delta_plot_s1nr4, delta_plot_s1nr5, nrow=2)
+# grid.arrange (delta_plot_s1nr1, delta_plot_s1nr3, delta_plot_s1nr4, delta_plot_s1nr5, nrow=2)
 
 grid.arrange (delta_plot_s1nr1, delta_plot_s1nr5, nrow=1)
 
@@ -672,11 +678,11 @@ delta_plot_s2nr1 <- ggRGB(delta_cropped[[1]], 7, 4, 3, stretch = "lin") +
        caption = "Data source: Landsat4 TM") +
   theme_void()
 
-delta_plot_s2nr2 <- ggRGB(delta_cropped[[2]], 7, 4, 3, stretch = "lin") +
-   labs(title = "Po delta 1995",
-       subtitle = "R = SWIR2, G = NIR and B = Red",
-       caption = "Data source: Landsat4 TM") +
-  theme_void()
+#delta_plot_s2nr2 <- ggRGB(delta_cropped[[2]], 7, 4, 3, stretch = "lin") +
+#   labs(title = "Po delta 1995",
+#       subtitle = "R = SWIR2, G = NIR and B = Red",
+#       caption = "Data source: Landsat4 TM") +
+#  theme_void()
 
 delta_plot_s2nr3 <- ggRGB(delta_cropped[[3]], 7, 4, 3, stretch = "lin") +
    labs(title = "Po delta 2003",
@@ -696,11 +702,24 @@ delta_plot_s2nr5 <- ggRGB(delta_cropped[[5]], 8, 6, 5, stretch = "lin") +
        caption = "Data source: Landsat8 OLI/TIRS") +
   theme_void()
 
-delta_falsecolor_plot <- grid.arrange (delta_plot_s2nr1, delta_plot_s2nr2, delta_plot_s2nr3, delta_plot_s2nr4, delta_plot_s2nr5, nrow=2)
+delta_falsecolor_plot <- grid.arrange (delta_plot_s2nr1, delta_plot_s2nr3, delta_plot_s2nr4, delta_plot_s2nr5, nrow=2)
 ggsave("delta_falcecolor_plot.jpeg", plot = delta_falsecolor_plot)
 
 grid.arrange (delta_plot_s2nr1, delta_plot_s2nr5, nrow=1)
 grid.arrange (delta_plot_s2nr2, delta_plot_s2nr5, nrow=1)
+
+# =============================================================== #
+
+nrg_full_plot <- grid.arrange (oristano_plot_nrg1, cagliari_plot_nrg1, delta_plot_nrg1,
+                               oristano_plot_nrg3, cagliari_plot_nrg3, delta_plot_nrg3,
+                               oristano_plot_nrg4, cagliari_plot_nrg4, delta_plot_nrg4,
+                               oristano_plot_nrg5, cagliari_plot_nrg5, delta_plot_nrg5,
+                               nrow=2)
+ggsave("nrg_plot.jpeg", plot = nrg_full_plot)
+
+
+  
+
 
 # =============================== #
        ## Spectral indices ##
@@ -722,7 +741,7 @@ oristano_ndvi_plot <-
   geom_raster(oristano_ndvi_diff, mapping = aes(x=x, y=y, fill = layer))+
   scale_fill_viridis("viridis") + 
   labs(title = "Oristano",
-       subtitle = "Difference in NDVI index between 1989 and 2023",
+       subtitle = "Difference in NDVI index between 2023 and 1989",
        caption = "Data source: Landsat 4 and 9 images") +
   theme_void()
 ggsave("oristano_ndvi_diff_plot.jpeg", plot = oristano_ndvi_plot)
@@ -735,7 +754,7 @@ oristano_ndwi_plot <-
   geom_raster(oristano_ndwi_diff, mapping = aes(x=x, y=y, fill = layer))+
   scale_fill_viridis("viridis") + 
   labs(title = "Oristano",
-       subtitle = "Difference in NDWI index between 1989 and 2023",
+       subtitle = "Difference in NDWI index between 2023 and 1989",
        caption = "Data source: Landsat 4 and 9 images") +
   theme_void()
 ggsave("oristano_ndwi_diff_plot.jpeg", plot = oristano_ndwi_plot)
@@ -748,7 +767,7 @@ oristano_ndwi2_plot <-
   geom_raster(oristano_ndwi2_diff, mapping = aes(x=x, y=y, fill = layer))+
   scale_fill_viridis("viridis") + 
   labs(title = "Oristano",
-       subtitle = "Difference in NDWI2 index between 1989 and 2023",
+       subtitle = "Difference in NDWI2 index between 2023 and 1989",
        caption = "Data source: Landsat 4 and 9 images") +
   theme_void()
 ggsave("oristano_ndwi2_diff_plot.jpeg", plot = oristano_ndwi2_plot)
@@ -761,7 +780,7 @@ oristano_slavi_plot <-
   geom_raster(oristano_slavi_diff, mapping = aes(x=x, y=y, fill = layer))+
   scale_fill_viridis("viridis") + 
   labs(title = "Oristano",
-       subtitle = "Difference in SLAVI index between 1989 and 2023",
+       subtitle = "Difference in SLAVI index between 2023 and 1989",
        caption = "Data source: Landsat 4 and 9 images") +
   theme_void()
 ggsave("oristano_slavi_diff_plot.jpeg", plot = oristano_slavi_plot)
@@ -782,7 +801,7 @@ cagliari_ndvi_plot <-
   geom_raster(cagliari_ndvi_diff, mapping = aes(x=x, y=y, fill = layer))+
   scale_fill_viridis("viridis") + 
   labs(title = "Cagliari",
-       subtitle = "Difference in NDVI index between 1989 and 2022",
+       subtitle = "Difference in NDVI index between 2022 and 1989",
        caption = "Data source: Landsat 4 and 9 images") +
   theme_void()
 ggsave("cagliari_ndvi_diff_plot.jpeg", plot = cagliari_ndvi_plot)
@@ -795,7 +814,7 @@ cagliari_ndwi_plot <-
   geom_raster(cagliari_ndwi_diff, mapping = aes(x=x, y=y, fill = layer))+
   scale_fill_viridis("viridis") + 
   labs(title = "Cagliari",
-       subtitle = "Difference in NDWI index between 1989 and 2022",
+       subtitle = "Difference in NDWI index between 2022 and 1989",
        caption = "Data source: Landsat 4 and 9 images") +
   theme_void()
 ggsave("cagliari_ndwi_diff_plot.jpeg", plot = cagliari_ndwi_plot)
@@ -808,7 +827,7 @@ cagliari_ndwi2_plot <-
   geom_raster(cagliari_ndwi2_diff, mapping = aes(x=x, y=y, fill = layer))+
   scale_fill_viridis("viridis") + 
   labs(title = "Cagliari",
-       subtitle = "Difference in NDWI2 index between 1989 and 2022",
+       subtitle = "Difference in NDWI2 index between 2022 abnd 1989",
        caption = "Data source: Landsat 4 and 9 images") +
   theme_void()
 ggsave("cagliari_ndwi2_diff_plot.jpeg", plot = cagliari_ndwi2_plot)
@@ -821,7 +840,7 @@ cagliari_slavi_plot <-
   geom_raster(cagliari_slavi_diff, mapping = aes(x=x, y=y, fill = layer))+
   scale_fill_viridis("viridis") + 
   labs(title = "Cagliari",
-       subtitle = "Difference in SLAVI index between 1989 and 2022",
+       subtitle = "Difference in SLAVI index between 2022 and 1989",
        caption = "Data source: Landsat 4 and 9 images") +
   theme_void()
 ggsave("cagliari_slavi_diff_plot.jpeg", plot = cagliari_slavi_plot)
@@ -841,7 +860,7 @@ delta_ndvi_plot <-
   geom_raster(delta_ndvi_diff, mapping = aes(x=x, y=y, fill = layer))+
   scale_fill_viridis("viridis") + 
   labs(title = "Po delta",
-       subtitle = "Difference in NDVI index between 1987 and 2020",
+       subtitle = "Difference in NDVI index between 2020 and 1987",
        caption = "Data source: Landsat 4 and 8 images") +
   theme_void()
 ggsave("delta_ndvi_diff_plot.jpeg", plot = delta_ndvi_plot)
@@ -853,7 +872,7 @@ delta_ndwi_plot <-
   geom_raster(delta_ndwi_diff, mapping = aes(x=x, y=y, fill = layer))+
   scale_fill_viridis("viridis") + 
   labs(title = "Po delta",
-       subtitle = "Difference in NDWI index between 1987 and 2020",
+       subtitle = "Difference in NDWI index between 2020 and 1987",
        caption = "Data source: Landsat 4 and 8 images") +
   theme_void()
 ggsave("delta_ndwi_diff_plot.jpeg", plot = delta_ndwi_plot)
@@ -865,7 +884,7 @@ delta_ndwi2_plot <-
   geom_raster(delta_ndwi2_diff, mapping = aes(x=x, y=y, fill = layer))+
   scale_fill_viridis("viridis") + 
   labs(title = "Po delta",
-       subtitle = "Difference in NDWI2 index between 1987 and 2020",
+       subtitle = "Difference in NDWI2 index between 2020 and 1987",
        caption = "Data source: Landsat 4 and 8 images") +
   theme_void()
 ggsave("delta_ndwi2_diff_plot.jpeg", plot = delta_ndwi2_plot)
@@ -877,7 +896,7 @@ delta_slavi_plot <-
   geom_raster(delta_slavi_diff, mapping = aes(x=x, y=y, fill = layer)) +
   scale_fill_viridis() + 
   labs(title = "Po delta",
-       subtitle = "Difference in SLAVI index between 1987 and 2020",
+       subtitle = "Difference in SLAVI index between 2020 and 1987",
        caption = "Data source: Landsat 4 and 8 images") +
   theme_void()
 ggsave("delta_slavi_diff_plot.jpeg", plot = delta_slavi_plot)
