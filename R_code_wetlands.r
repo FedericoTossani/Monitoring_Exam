@@ -49,10 +49,10 @@ list.of.packages <- c("tidyverse", "raster", "RStoolbox", "rasterdiv", "rasterVi
 
 # I used this piece of code to create stack of bands I need for the further analysis
 
-# list_img <- list.files(pattern = "20200104_B")
-# img_allbands <- lapply(list_img, raster)
-# img_stack <- stack(img_allbands)
-# writeRaster(img_stack, filename="delta_p191r29_20200104.grd", format="raster")
+ list_img <- list.files(pattern = "20200104_B")
+ img_allbands <- lapply(list_img, raster)
+ img_stack <- stack(img_allbands)
+ writeRaster(img_stack, filename="delta_p191r29_20200104.grd", format="raster")
 
 ## Import the multiband images with brick and crop it to the intrested area
 ## From now on I will use this images for the anlysis
@@ -396,7 +396,7 @@ oristano_plot_s2nr5 <- ggRGB(oristano_cropped[[5]], 8, 6, 5, stretch = "lin") +
        caption = "Data source: Landsat9 OLI/TIRS") +
   theme_void()
 
-# grid.arrange (oristano_plot_s2nr1, oristano_plot_s2nr3, oristano_plot_s2nr4, oristano_plot_s2nr5, nrow=2)
+ grid.arrange (oristano_plot_s2nr1, oristano_plot_s2nr3, oristano_plot_s2nr4, oristano_plot_s2nr5, nrow=2)
 
 grid.arrange (oristano_plot_s2nr1, oristano_plot_s2nr5, nrow=1)
 
@@ -592,7 +592,6 @@ grid.arrange (delta_plot_nrg3, delta_plot_nrg5, nrow=1)
 grid.arrange (delta_plot_nrg4, delta_plot_nrg5, nrow=1)
 
 
-
 # R = swir, G = swir, B = red
 
  delta_plot_ssr1 <- ggRGB(delta_cropped[[1]], 7, 5, 3, stretch = "lin") +
@@ -711,18 +710,15 @@ grid.arrange (delta_plot_s2nr2, delta_plot_s2nr5, nrow=1)
 # =============================================================== #
 
 nrg_full_plot <- grid.arrange (oristano_plot_nrg1, cagliari_plot_nrg1, delta_plot_nrg1,
-                               oristano_plot_nrg3, cagliari_plot_nrg3, delta_plot_nrg3,
-                               oristano_plot_nrg4, cagliari_plot_nrg4, delta_plot_nrg4,
                                oristano_plot_nrg5, cagliari_plot_nrg5, delta_plot_nrg5,
-                               nrow=4)
+                               nrow=2)
 ggsave("nrg_plot.jpeg", plot = nrg_full_plot)
+# =============================================================== #
 
-nrg_90s_plot <- grid.arrange (oristano_plot_nrg1, cagliari_plot_nrg1, delta_plot_nrg1,
-                               nrow=1)
-nrg_05s_plot <- grid.arrange (oristano_plot_nrg3, cagliari_plot_nrg3, delta_plot_nrg3,
-                               nrow=1)
-nrg_15s_plot <- grid.arrange (oristano_plot_nrg4, cagliari_plot_nrg4, delta_plot_nrg4,
-                               nrow=1) 
+s2nr_full_plot <- grid.arrange (oristano_plot_s2nr1, cagliari_plot_s2nr1, delta_plot_s2nr1,
+                                 oristano_plot_s2nr5, cagliari_plot_s2nr5, delta_plot_s2nr5,
+                                 nrow=2)
+ggsave("s2nr_plot.jpeg", plot = s2nr_full_plot)
 
 
 # =============================== #
@@ -737,6 +733,7 @@ oristano95_indices <- RStoolbox::spectralIndices(oristano_cropped[[2]], blue = 1
 oristano07_indices <- RStoolbox::spectralIndices(oristano_cropped[[3]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
 oristano17_indices <- RStoolbox::spectralIndices(oristano_cropped[[4]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
 oristano23_indices <- RStoolbox::spectralIndices(oristano_cropped[[5]], blue = 3, green = 4, red = 5, nir = 6, swir2 = 7, swir3= 8, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
+
 
 oristano_ndvi_diff <- oristano23_indices$NDVI - oristano89_indices$NDVI
 
@@ -798,6 +795,7 @@ cagliari05_indices <- RStoolbox::spectralIndices(cagliari_cropped[[3]], blue = 1
 cagliari17_indices <- RStoolbox::spectralIndices(cagliari_cropped[[4]], blue = 1, green = 2, red = 3, nir = 4, swir2 = 5, swir3= 7, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
 cagliari22_indices <- RStoolbox::spectralIndices(cagliari_cropped[[5]], blue = 3, green = 4, red = 5, nir = 6, swir2 = 7, swir3= 8, indices = c("NDVI", "NDWI", "NDWI2", "SLAVI"))
 
+
 cagliari_ndvi_diff <- cagliari22_indices$NDVI - cagliari89_indices$NDVI
 
 cagliari_ndvi_plot <-
@@ -813,16 +811,20 @@ ggsave("cagliari_ndvi_diff_plot.jpeg", plot = cagliari_ndvi_plot)
 
 cagliari_ndwi_diff <- cagliari22_indices$NDWI - cagliari89_indices$NDWI
 
-cagliari_ndwi_plot <-
- ggplot()+
-  geom_raster(cagliari_ndwi_diff, mapping = aes(x=x, y=y, fill = layer))+
-  scale_fill_viridis("viridis") + 
-  labs(title = "Cagliari",
-       subtitle = "Difference in NDWI index between 2022 and 1989",
-       caption = "Data source: Landsat 4 and 9 images") +
-  theme_void()
+  cagliari_ndwi_plot <-
+   ggplot()+
+    geom_raster(cagliari_ndwi_diff, mapping = aes(x=x, y=y, fill = layer))+
+    scale_fill_viridis("viridis") + 
+    labs(title = "      Cagliari",
+         subtitle = "       Difference in NDWI index between 2022 and 1989",
+         caption = "Data source: Landsat 4 and 9 images") +
+    theme_void()
 ggsave("cagliari_ndwi_diff_plot.jpeg", plot = cagliari_ndwi_plot)
 
+??????????????????????????????????????????????????????????????????
+cagliari_indices_plot <- grid.arrange(cagliari_ndvi_plot, cagliari_ndwi_plot, nrows = 2)
+ggsave("cagliari_indices_plot.jpeg", plot = cagliari_indices_plot)
+??????????????????????????????????????????????????????????????????
 
 cagliari_ndwi2_diff <- cagliari22_indices$NDWI2 - cagliari89_indices$NDWI2
 
@@ -914,11 +916,11 @@ ggsave("delta_slavi_diff_plot.jpeg", plot = delta_slavi_plot)
     ## Oristano
 
 set.seed(999)
-oristano89_lcc <- unsuperClass(oristano_cropped[[1]], nSamples = 1000, nClasses = 5)
-oristano99_lcc <- unsuperClass(oristano_cropped[[2]], nSamples = 1000, nClasses = 5)
-oristano07_lcc <- unsuperClass(oristano_cropped[[3]], nSamples = 1000, nClasses = 5)
-oristano17_lcc <- unsuperClass(oristano_cropped[[4]], nSamples = 1000, nClasses = 5)
-oristano23_lcc <- unsuperClass(oristano_cropped[[5]], nSamples = 1000, nClasses = 5)
+oristano89_lcc <- unsuperClass(oristano_cropped[[1]], nSamples = 1000, nClasses = 7)
+oristano99_lcc <- unsuperClass(oristano_cropped[[2]], nSamples = 1000, nClasses = 7)
+oristano07_lcc <- unsuperClass(oristano_cropped[[3]], nSamples = 1000, nClasses = 7)
+oristano17_lcc <- unsuperClass(oristano_cropped[[4]], nSamples = 1000, nClasses = 7)
+oristano23_lcc <- unsuperClass(oristano_cropped[[5]], nSamples = 1000, nClasses = 7)
 
 oristano_lcc <- list(oristano89_lcc, oristano99_lcc, oristano07_lcc, oristano17_lcc, oristano23_lcc)
 
@@ -932,11 +934,11 @@ plot(oristano_lcc[[5]]$map)
 
     ## Cagliari
 
-cagliari89_lcc <- unsuperClass(cagliari_cropped[[1]], nSamples = 1000, nClasses = 5)
-cagliari96_lcc <- unsuperClass(cagliari_cropped[[2]], nSamples = 1000, nClasses = 5)
-cagliari05_lcc <- unsuperClass(cagliari_cropped[[3]], nSamples = 1000, nClasses = 5)
-cagliari17_lcc <- unsuperClass(cagliari_cropped[[4]], nSamples = 1000, nClasses = 5)
-cagliari22_lcc <- unsuperClass(cagliari_cropped[[5]], nSamples = 1000, nClasses = 5)
+cagliari89_lcc <- unsuperClass(cagliari_cropped[[1]], nSamples = 1000, nClasses = 7)
+cagliari96_lcc <- unsuperClass(cagliari_cropped[[2]], nSamples = 1000, nClasses = 7)
+cagliari05_lcc <- unsuperClass(cagliari_cropped[[3]], nSamples = 1000, nClasses = 7)
+cagliari17_lcc <- unsuperClass(cagliari_cropped[[4]], nSamples = 1000, nClasses = 7)
+cagliari22_lcc <- unsuperClass(cagliari_cropped[[5]], nSamples = 1000, nClasses = 7)
 
 cagliari_lcc <- list(cagliari89_lcc, cagliari96_lcc, cagliari05_lcc, cagliari17_lcc, cagliari22_lcc)
 
@@ -950,11 +952,11 @@ plot(cagliari_lcc[[5]]$map)
     ## Po delta
 
 set.seed(999)
-delta87_lcc <- unsuperClass(delta_cropped[[1]], nSamples = 1000, nClasses = 5)
-delta95_lcc <- unsuperClass(delta_cropped[[2]], nSamples = 1000, nClasses = 5)
-delta03_lcc <- unsuperClass(delta_cropped[[3]], nSamples = 1000, nClasses = 5)
-delta15_lcc <- unsuperClass(delta_cropped[[4]], nSamples = 1000, nClasses = 5)
-delta20_lcc <- unsuperClass(delta_cropped[[5]], nSamples = 1000, nClasses = 5)
+delta87_lcc <- unsuperClass(delta_cropped[[1]], nSamples = 1000, nClasses = 7)
+delta95_lcc <- unsuperClass(delta_cropped[[2]], nSamples = 1000, nClasses = 7)
+delta03_lcc <- unsuperClass(delta_cropped[[3]], nSamples = 1000, nClasses = 7)
+delta15_lcc <- unsuperClass(delta_cropped[[4]], nSamples = 1000, nClasses = 7)
+delta20_lcc <- unsuperClass(delta_cropped[[5]], nSamples = 1000, nClasses = 7)
 
 delta_lcc <- list(delta87_lcc, delta95_lcc, delta03_lcc, delta15_lcc, delta20_lcc)
 
