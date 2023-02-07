@@ -423,7 +423,7 @@ grid.arrange (oristano_plot_s2nr1, oristano_plot_s2nr5, nrow=1)
        caption = "Data source: Landsat4 TM") +
   theme_void()
 
- cagliari_plot_nrg4 <- ggRGB(cagliari_cropped[[4]], 4, 3, 2, stretch = "lin") +
+ cagliari_plot_nrg4 <- ggRGB(cagliari_cropped[[4]], 6, 5, 4, stretch = "lin") +
    labs(title = "Cagliari 2017",
        subtitle = "R = NIR, G = Red and B = Green",
        caption = "Data source: Landsat8 OLI/TIRS") +
@@ -573,10 +573,10 @@ grid.arrange (cagliari_plot_s2nr1, cagliari_plot_s2nr5, nrow=1)
        caption = "Data source: Landsat4 TM") +
   theme_void()
 
- delta_plot_nrg4 <- ggRGB(delta_cropped[[4]], 4, 3, 2, stretch = "lin") +
+ delta_plot_nrg4 <- ggRGB(delta_cropped[[4]], 6, 5, 4, stretch = "lin") +
    labs(title = "Po delta 2015",
        subtitle = "R = NIR, G = Red and B = Green",
-       caption = "Data source: Landsat7 ETM") +
+       caption = "Data source: Landsat8 OLI/TIRS") +
   theme_void()
 
  delta_plot_nrg5 <- ggRGB(delta_cropped[[5]], 6, 5, 4, stretch = "lin") +
@@ -613,10 +613,10 @@ grid.arrange (delta_plot_nrg4, delta_plot_nrg5, nrow=1)
        caption = "Data source: Landsat4 TM") +
   theme_void()
 
- delta_plot_ssr4 <- ggRGB(delta_cropped[[4]], 7, 5, 3, stretch = "lin") +
+ delta_plot_ssr4 <- ggRGB(delta_cropped[[4]], 8, 7, 5, stretch = "lin") +
    labs(title = "Po delta 2015",
        subtitle = "R = SWIR1, G = SWIR2 and B = Red",
-       caption = "Data source: Landsat7 ETM") +
+       caption = "Data source: Landsat8 OLI/TIRS") +
   theme_void()
 
  delta_plot_ssr5 <- ggRGB(delta_cropped[[5]], 8, 7, 5, stretch = "lin") +
@@ -653,10 +653,10 @@ delta_plot_s1nr3 <- ggRGB(delta_cropped[[3]], 5, 4, 3, stretch = "lin") +
        caption = "Data source: Landsat4 TM") +
   theme_void()
 
-delta_plot_s1nr4 <- ggRGB(delta_cropped[[4]], 5, 4, 3, stretch = "lin") +
+delta_plot_s1nr4 <- ggRGB(delta_cropped[[4]], 7, 6, 5, stretch = "lin") +
    labs(title = "Po delta 2015",
        subtitle = "R = SWIR1, G = NIR and B = Red",
-       caption = "Data source: Landsat7 ETM") +
+       caption = "Data source: Landsat8 OLI/TIRS") +
   theme_void()
 
 delta_plot_s1nr5 <- ggRGB(delta_cropped[[5]], 7, 6, 5, stretch = "lin") +
@@ -690,10 +690,10 @@ delta_plot_s2nr3 <- ggRGB(delta_cropped[[3]], 7, 4, 3, stretch = "lin") +
        caption = "Data source: Landsat4 TM") +
   theme_void()
 
-delta_plot_s2nr4 <- ggRGB(delta_cropped[[4]], 7, 4, 3, stretch = "lin") +
+delta_plot_s2nr4 <- ggRGB(delta_cropped[[4]], 8, 6, 5, stretch = "lin") +
    labs(title = "Po delta 2015",
        subtitle = "R = SWIR2, G = NIR and B = Red",
-       caption = "Data source: Landsat7 ETM") +
+       caption = "Data source: Landsat8 OLI/TIRS") +
   theme_void()
 
 delta_plot_s2nr5 <- ggRGB(delta_cropped[[5]], 8, 6, 5, stretch = "lin") +
@@ -714,11 +714,15 @@ nrg_full_plot <- grid.arrange (oristano_plot_nrg1, cagliari_plot_nrg1, delta_plo
                                oristano_plot_nrg3, cagliari_plot_nrg3, delta_plot_nrg3,
                                oristano_plot_nrg4, cagliari_plot_nrg4, delta_plot_nrg4,
                                oristano_plot_nrg5, cagliari_plot_nrg5, delta_plot_nrg5,
-                               nrow=2)
+                               nrow=4)
 ggsave("nrg_plot.jpeg", plot = nrg_full_plot)
 
-
-  
+nrg_90s_plot <- grid.arrange (oristano_plot_nrg1, cagliari_plot_nrg1, delta_plot_nrg1,
+                               nrow=1)
+nrg_05s_plot <- grid.arrange (oristano_plot_nrg3, cagliari_plot_nrg3, delta_plot_nrg3,
+                               nrow=1)
+nrg_15s_plot <- grid.arrange (oristano_plot_nrg4, cagliari_plot_nrg4, delta_plot_nrg4,
+                               nrow=1) 
 
 
 # =============================== #
