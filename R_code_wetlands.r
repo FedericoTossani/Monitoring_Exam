@@ -8,7 +8,7 @@
 # Univesity: Alma Mater Studiorum University of Bologna.
 # Academic year: 2022/2023
  
-# Datasets: Landsat images and EEA data
+# Datasets: Landsat images and European Environmental Agency data
 
 # =========================== #
          ## SUMMARY ##
@@ -16,11 +16,10 @@
 
 # 1. SetWD and packages
 # 2. Data import
-# 3. False color
-# 4. Spectral indices
-# 5. Land use and Land Cover Classification
-# 6. Change detection
-# 7. Birds populations trend
+# 3. Birds populations trend
+# 4. False color
+# 5. Spectral indices
+# 6. Land use and Land Cover Classification
 
 # ================================ #
       ## SetWD and packages ##
@@ -31,7 +30,8 @@ setwd("C:/lab/exam/")
 
 # Creo una lista che contiene tutti i pacchetti che mi interesanno per le successiva analisi
 
-list.of.packages <- c("tidyverse", "raster", "RStoolbox", "rasterdiv", "rasterVis", "viridis", "gridExtra", "maptools", "sf")
+list.of.packages <- c("tidyverse", "raster", "RStoolbox", "rasterdiv", "rasterVis", "viridis",
+"gridExtra", "maptools", "sf", "stargazer")
 
 # il seguente comando verifica che i pacchetti siano installati (se necessario li installa) poi li carica
 
@@ -153,6 +153,90 @@ remove_index <- c(TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALS
 
 # Remove the selected elements using the logical index
 delta_cropped <- delta_cropped[!remove_index]
+
+
+# =================================== #
+      ## Bird population trend ##
+# =================================== #
+
+
+data_birds_raw <- read.csv("data_birds.csv")
+data_taxbirds <- read.csv("bird_check_list.csv")
+
+source <- data_birds_raw%>%
+  dplyr::select(matches("_source"))%>%
+  colnames()
+
+data_taxbirds <- data_taxbirds%>%
+  dplyr::select("speciescode", "speciesname","taxOrder", "taxFamily", "taxGroup_en", "taxFamily_en")%>%
+  distinct(.keep_all = TRUE)
+
+
+variable <- c("country", "season","speciescode", "speciesname", "common_speciesname", "population_date",
+              "population_size_unit", "population_size_min", "population_size_max",
+              "population_method", "population_trend_period", "population_trend",
+              "population_trend_method", "population_trend_long_period", "population_trend_long",
+              "population_trend_long_method", "taxGroup_en")
+
+data_birds <- data_birds_raw%>%
+  dplyr::select(-which(names(data_birds_raw) %in% source))%>%  
+  filter(country == "IT", season == "W")%>%
+  left_join(data_taxbirds, by = c("speciescode", "speciesname"), keep = F)%>%
+  dplyr::select(all_of(variable))%>%
+  filter(taxGroup_en != "Hawks and Eagles")%>%
+  arrange(speciescode, sort = T)%>%
+  group_by(population_trend)
+
+
+birds_pop_trend <- data_birds%>%
+count(population_trend)
+
+pop_trend_plot <- ggplot(birds_pop_trend, aes(x = "", y = n, fill = population_trend)) +
+                      geom_col(color = "black")+
+                      geom_text(aes(label = n),
+                                color = "white",
+                                position = position_stack(vjust = 0.5)) +
+                      coord_polar(theta = "y")+
+                      guides(fill = guide_legend(title = "Population trend")) +
+                      scale_fill_manual(values = c("#BE2A3E", "#3C8D53", "#EC754A", "#000000"),
+                                        labels = c("Decreasing", "Increasing", "Stable", "Unknown")) +
+                      theme_void()+ 
+                      ggtitle("       Populations trends of italian wintering seabirds and shorebirds (2007 - 2015)")
+
+
+birds_pop_trend_long <- data_birds%>%
+group_by(population_trend_long)%>%
+count(population_trend_long)
+
+pop_trend_long_plot <- ggplot(birds_pop_trend_long, aes(x = "", y = n, fill = population_trend_long)) +
+                          geom_col(color = "black")+
+                          geom_text(aes(label = n),
+                                    color = "white",
+                                    position = position_stack(vjust = 0.5)) +
+                          coord_polar(theta = "y")+
+                          guides(fill = guide_legend(title = "Population trend
+                          (1991-2018)")) +
+                          scale_fill_manual(values = c("#BE2A3E", "#3C8D53", "#EC754A", "#000000"),
+                                            labels = c("Decreasing", "Increasing", "Stable", "Unknown")) +
+                          theme_void()+ 
+                          ggtitle("       Populations trends of italian wintering seabirds and shorebirds (1991 - 2015)")
+
+
+data_birds_list <- data_birds%>%
+                        dplyr::select("speciesname", "common_speciesname", "population_trend_period", "population_trend",
+                                      "population_trend_long_period", "population_trend_long", "taxGroup_en")%>%
+                        rename("pop_trend_period" = "population_trend_period",
+                               "pop_trend" = "population_trend",
+                               "pop_trend_long_period" = "population_trend_long_period",
+                               "pop_trend_long" = "population_trend_long")%>%
+                        arrange(pop_trend_long)
+                               
+
+stargazer(data_birds_list,
+          summary = FALSE,
+          type = "text",
+          digit.separator = ".",
+          out = "wintering_birds.txt")
 
 
 # =========================== #
@@ -894,72 +978,6 @@ plot(delta_lcc[[5]]$map)
   # Show the plot
 #  print(p)
 #}
-
-# =================================== #
-      ## Bird population trend ##
-# =================================== #
-
-
-data_birds_raw <- read.csv("data_birds.csv")
-data_taxbirds <- read.csv("bird_check_list.csv")
-
-source <- data_birds_raw%>%
-  dplyr::select(matches("_source"))%>%
-  colnames()
-
-data_taxbirds <- data_taxbirds%>%
-  dplyr::select("speciescode", "speciesname","taxOrder", "taxFamily", "taxGroup_en", "taxFamily_en")%>%
-  distinct(.keep_all = TRUE)
-
-
-variable <- c("country", "season","speciescode", "speciesname", "common_speciesname", "population_date",
-              "population_size_unit", "population_size_min", "population_size_max",
-              "population_method", "population_trend_period", "population_trend",
-              "population_trend_method", "population_trend_long_period", "population_trend_long",
-              "population_trend_long_method", "taxGroup_en")
-
-data_birds <- data_birds_raw%>%
-  dplyr::select(-which(names(data_birds_raw) %in% source))%>%  
-  filter(country == "IT", season == "W")%>%
-  left_join(data_taxbirds, by = c("speciescode", "speciesname"), keep = F)%>%
-  dplyr::select(all_of(variable))%>%
-  filter(taxGroup_en != "Hawks and Eagles")%>%
-  arrange(speciescode, sort = T)%>%
-  group_by(population_trend)
-
-
-birds_pop_trend <- data_birds%>%
-count(population_trend)
-
-pop_trend_plot <- ggplot(birds_pop_trend, aes(x = "", y = n, fill = population_trend)) +
-                      geom_col(color = "black")+
-                      geom_text(aes(label = n),
-                                color = "white",
-                                position = position_stack(vjust = 0.5)) +
-                      coord_polar(theta = "y")+
-                      guides(fill = guide_legend(title = "Population trend")) +
-                      scale_fill_manual(values = c("#BE2A3E", "#3C8D53", "#EC754A", "#000000"),
-                                        labels = c("Decreasing", "Increasing", "Stable", "Unknown")) +
-                      theme_void()+ 
-                      ggtitle("       Populations trends of european seabirds and shorebirds (2007 - 2018)")
-
-
-birds_pop_trend_long <- data_birds%>%
-group_by(population_trend_long)%>%
-count(population_trend_long)
-
-pop_trend_long_plot <- ggplot(birds_pop_trend_long, aes(x = "", y = n, fill = population_trend_long)) +
-                          geom_col(color = "black")+
-                          geom_text(aes(label = n),
-                                    color = "white",
-                                    position = position_stack(vjust = 0.5)) +
-                          coord_polar(theta = "y")+
-                          guides(fill = guide_legend(title = "Population trend
-                          (1991-2018)")) +
-                          scale_fill_manual(values = c("#BE2A3E", "#3C8D53", "#EC754A", "#000000"),
-                                            labels = c("Decreasing", "Increasing", "Stable", "Unknown")) +
-                          theme_void()+ 
-                          ggtitle("       Populations trends of european seabirds and shorebirds (1991 - 2018)")
 
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
