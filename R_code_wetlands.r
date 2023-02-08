@@ -28,12 +28,16 @@
 # Prima di tutto imposto la working directory
 setwd("C:/lab/exam/")
 
-# Creo una lista che contiene tutti i pacchetti che mi interesanno per le successiva analisi
+# First I create a list of the packages I need
 
-list.of.packages <- c("tidyverse", "raster", "RStoolbox", "rasterdiv", "rasterVis", "viridis",
-"gridExtra", "maptools", "sf", "stargazer")
+list.of.packages <- c("tidyverse", 
+                      "raster", 
+                      "RStoolbox", 
+                      "viridis",
+                      "gridExtra",
+                      "stargazer")
 
-# il seguente comando verifica che i pacchetti siano installati (se necessario li installa) poi li carica
+# with this line of code I check if alll the packages are installed and then I load it
 
 {
   new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
@@ -910,10 +914,7 @@ ggsave("delta_slavi_diff_plot.jpeg", plot = delta_slavi_plot)
 # ===================================================== #
        ## Land Use and Land Cover Classification ##
 # ===================================================== #
- 
-# First creaate s color ramp palette
 
-mycol <- colorRampPalette(c("dark blue", "blue", "light blue", "yellow"))
 
     ## Oristano
 
@@ -967,7 +968,7 @@ plot(cagliari_lcc[[5]]$map)
     ## Po delta
 
 set.seed(999)
-delta87_lcc <- unsuperClass(delta_cropped[[1]], nSamples = 100, nClasses = 7)
+delta87_lcc <- unsuperClass(delta_cropped[[1]], nSamples = 1000, nClasses = 7)
 delta95_lcc <- unsuperClass(delta_cropped[[2]], nSamples = 1000, nClasses = 7)
 delta03_lcc <- unsuperClass(delta_cropped[[3]], nSamples = 1000, nClasses = 7)
 delta15_lcc <- unsuperClass(delta_cropped[[4]], nSamples = 1000, nClasses = 7)
@@ -996,18 +997,18 @@ plot(delta_lcc[[5]]$map)
 
 # Loop through the data in the list
 #for (i in 1:length(cagliari_lcc)) {
-  # Extract the current data
+#  # Extract the current data
 #  data <- cagliari_lcc[[i]]
-  
-  # Create a plot using ggplot2
+#  
+#  # Create a plot using ggplot2
 #  p <- ggplot(data, aes(x = wt, y = mpg)) +
 #    geom_raster() +
 #    ggtitle(paste0("Plot ", plot_num))
-  
-  # Increment the plot number
+#  
+#  # Increment the plot number
 #  plot_num <- plot_num + 1
-  
-  # Show the plot
+#  
+#  # Show the plot
 #  print(p)
 #}
 
