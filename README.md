@@ -8,7 +8,7 @@ The purpose of this code is to analize wetland ecosystems across Europe and rela
 
 The data used in this analysis came from Landsat satellite.
 
-To study birds populations changes I downloaded the data from European Environmental Agency databases.
+To study birds populations changes I downloaded the dataset from European Environmental Agency databases.
 
 ## Area of interest
 
