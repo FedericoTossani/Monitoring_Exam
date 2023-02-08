@@ -7,67 +7,7 @@
 
 # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
 
-# old code to import and crop
-
-oristano87_f <- brick("ori_p193r32_19870429.grd")
-oristano02_f <- brick("ori_p193r32_20020430.grd")
-oristano22_f <- brick("ori_p193r32_20220429.grd") # Landsat 8
-
-oristano_crop_plot <- plotRGB(oristano87_f, 4, 3, 2, stretch="lin")
-drawExtent(show=TRUE, col="red")
-
-ext_oristano <- extent(447440, 463826.3, 4411123, 4428401)
-
-oristano87_c <- crop(oristano87_f, ext_oristano)
-oristano02_c <- crop(oristano02_f, ext_oristano)
-oristano22_c <- crop(oristano22_f, ext_oristano) # Landsat 8
-
-cagliari84_f <- brick("cagliari_p193r33_19840506.grd")
-cagliari93_f <- brick("cagliari_p192r33_19930508.grd")
-cagliari02_f <- brick("cagliari_p192r33_20020517.grd")
-cagliari11_f <- brick("cagliari_p193r33_20110517.grd")
-cagliari21_f <- brick("cagliari_p193r33_20210512.grd") # Landsat 8
-
-# Let's crop the images by the extent I need
-
-cagliari84_c <- crop(cagliari84_f, ext_cagliari)
-cagliari93_c <- crop(cagliari93_f, ext_cagliari)
-cagliari02_c <- crop(cagliari02_f, ext_cagliari)
-cagliari11_c <- crop(cagliari11_f, ext_cagliari)
-cagliari21_c <- crop(cagliari21_f, ext_cagliari) # Landsat 8
-
-# plotRGB(cagliari84_c, 4, 3, 2, stretch="lin")
-
-delta85_f <- brick("delta_p191r29_19850511.grd")
-delta93_f <- brick("delta_p191r29_19930517.grd")
-delta02_f <- brick("delta_p192r29_20020517.grd")
-delta11_f <- brick("delta_p191r29_20110519.grd")
-delta20_f <- brick("delta_p191r29_20200527.grd") # Landsat 8
-
-# Let's crop the images by the extent I need
-
-delta85_c <- crop(delta85_f, ext_delta)
-delta93_c <- crop(delta93_f, ext_delta)
-delta02_c <- crop(delta02_f, ext_delta)
-delta11_c <- crop(delta11_f, ext_delta)
-delta20_c <- crop(delta20_f, ext_delta) # Landsat 8
-
-# plotRGB(delta85_c, 4, 3, 2, stretch="lin")
-
-# - # - # - # - # - # - # - # - # - # - # - # - # - # - #
-
-
-# Let's plot the images in natural colors
-
-p22 <- plotRGB(ori22, 4, 3, 2, stretch = "lin")
-p02 <- plotRGB(ori02, 3, 2, 1, stretch = "lin")
-p87 <- plotRGB(ori87, 3, 2, 1, stretch = "lin")
-
-grid.arrange(p87, p02, p22, nrow = 2)
-
-
-### ---> ??? detecting water pixel ??? <--- ###
-
+### --->  detecting water pixel  <--- ###
 
 # detecting water pixel 
 ndwi87 <- (ori87[[3]] - ori87[[5]]) / (ori87[[3]] + ori87[[5]]) # that's good
@@ -211,16 +151,11 @@ grid.arrange(pn22, pn02, pn87, pnd,  nrow = 2)
 
 # EVI
 
-#
-
 # =================================== #
     ## Land Cover Classification ##
 # =================================== #
 
-
 po22_lcc <- unsuperClass(po22, nSamples = 100, nClasses = 50)
-
-
 
 delta_nir_bands <- list()
 
